@@ -1,0 +1,274 @@
+.place-page {
+  padding: 80px 40px 24px;
+  max-width: 1760px;
+  margin: 0 auto;
+}
+
+.loading {
+  text-align: center;
+  padding: 100px 20px;
+  font-size: 18px;
+  color: #717171;
+}
+
+.place-header {
+  margin-bottom: 24px;
+}
+
+.place-header h1 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.place-location-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #222;
+  text-decoration: underline;
+}
+
+.place-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: repeat(2, 200px);
+  gap: 8px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+
+.gallery-main {
+  grid-row: span 2;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.gallery-item {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.place-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 80px;
+}
+
+.place-details h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 16px;
+}
+
+.place-host {
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+}
+
+.place-host h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.place-host p {
+  font-size: 15px;
+  color: #717171;
+}
+
+.place-features {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+}
+
+.feature {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.feature h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.feature p {
+  font-size: 15px;
+  color: #717171;
+}
+
+.place-description {
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+}
+
+.place-description p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #222;
+}
+
+.place-amenities {
+  margin-bottom: 32px;
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.amenity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: #222;
+}
+
+.booking-sidebar {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.booking-card {
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+}
+
+.price span {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.rating {
+  font-size: 14px;
+  color: #222;
+}
+
+.booking-form {
+  margin-bottom: 24px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.form-group {
+  border: 1px solid #b0b0b0;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  border: none;
+  font-size: 14px;
+  color: #222;
+  outline: none;
+}
+
+.reserve-btn {
+  width: 100%;
+  background: linear-gradient(to right, #E61E4D 0%, #E31C5F 50%, #D70466 100%);
+  color: white;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.reserve-btn:hover {
+  background: linear-gradient(to right, #D70466 0%, #C31162 50%, #B0105E 100%);
+}
+
+.no-charge {
+  text-align: center;
+  font-size: 14px;
+  color: #717171;
+  margin-top: 12px;
+}
+
+.booking-total {
+  margin-top: 24px;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+.total-divider {
+  border-top: 1px solid #e7e7e7;
+  margin: 16px 0;
+}
+
+.total {
+  font-weight: 600;
+  font-size: 16px;
+}

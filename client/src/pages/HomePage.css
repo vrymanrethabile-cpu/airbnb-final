@@ -1,0 +1,147 @@
+.homepage {
+  padding: 80px 40px 24px;
+  max-width: 1760px;
+  margin: 0 auto;
+}
+
+.categories {
+  display: flex;
+  gap: 32px;
+  padding: 20px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.categories::-webkit-scrollbar {
+  display: none;
+}
+
+.category-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #717171;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.1s;
+}
+
+.category-btn:hover {
+  color: #222;
+}
+
+.category-btn.active {
+  color: #222;
+  border-bottom: 2px solid #222;
+}
+
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.place-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.place-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 20/19;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f7f7f7;
+  margin-bottom: 12px;
+}
+
+.place-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  font-size: 14px;
+  background-image: url('https://via.placeholder.com/800x600?text=No+Image');
+  background-size: cover;
+  background-position: center;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1);
+}
+
+.place-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.place-location {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+.place-distance,
+.place-dates {
+  font-size: 15px;
+  color: #717171;
+}
+
+.place-price {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  margin-top: 4px;
+}
+
+.place-price span {
+  font-weight: 400;
+}
+
+.place-rating {
+  font-size: 15px;
+  color: #717171;
+}
+
+.no-places {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #717171;
+  font-size: 16px;
+}

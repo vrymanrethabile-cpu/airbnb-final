@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.local
+.env.development
+.env.production
+client/node_modules/
+server/node_modules/
+socket/node_modules/
+build/
+client/build/

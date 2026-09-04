@@ -1,0 +1,143 @@
+.booking-page {
+  padding: 80px 40px 24px;
+  max-width: 1760px;
+  margin: 0 auto;
+}
+
+.loading {
+  text-align: center;
+  padding: 100px 20px;
+  font-size: 18px;
+  color: #717171;
+}
+
+.booking-container {
+  max-width: 800px;
+}
+
+.booking-header {
+  margin-bottom: 32px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #222;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.booking-header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #222;
+}
+
+.booking-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+.booking-place {
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.place-gallery {
+  width: 100%;
+  height: 300px;
+}
+
+.place-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.place-info {
+  padding: 24px;
+}
+
+.place-info h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.place-info p {
+  font-size: 15px;
+  color: #717171;
+}
+
+.booking-info-card {
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.info-section {
+  margin-bottom: 32px;
+}
+
+.info-section:last-of-type {
+  margin-bottom: 24px;
+}
+
+.info-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 16px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 15px;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row span:first-child {
+  color: #717171;
+}
+
+.info-row span:last-child {
+  color: #222;
+  font-weight: 500;
+}
+
+.status.not-paid {
+  color: #e31c5f;
+}
+
+.status.paid {
+  color: #0066cc;
+}
+
+.cancel-btn {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e31c5f;
+  background: white;
+  color: #e31c5f;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: #fff5f7;
+}

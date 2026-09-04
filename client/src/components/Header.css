@@ -1,0 +1,121 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-bottom: 1px solid #e7e7e7;
+  z-index: 1000;
+  height: 80px;
+}
+
+.header-container {
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #FF385C;
+  font-size: 22px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e7e7e7;
+  border-radius: 40px;
+  padding: 8px 8px 8px 24px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s;
+}
+
+.search-bar:hover {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+}
+
+.search-btn {
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #717171;
+  border-right: 1px solid #e7e7e7;
+  background: none;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background: #ebebeb;
+  border-radius: 20px;
+}
+
+.search-btn-add {
+  border-right: none;
+  color: #717171;
+}
+
+.search-icon {
+  background: #FF385C;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.search-icon:hover {
+  background: #e31c5f;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  text-decoration: none;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.nav-link:hover {
+  background: #f7f7f7;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 5px 5px 12px;
+  border: 1px solid #e7e7e7;
+  border-radius: 22px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  font-size: 30px;
+  color: #717171;
+}
+
+.user-menu:hover {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+}
