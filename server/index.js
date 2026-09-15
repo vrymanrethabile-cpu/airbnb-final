@@ -74,16 +74,23 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Connect to Db
-mongoose
-  .connect(process.env.MONGOURL)
-  .then(() => {
-    app.listen(process.env.PORT, (req, res) => {
-      console.log(`--Listening to Port,${process.env.PORT}`);
+if (process.env.MONGOURL) {
+  mongoose
+    .connect(process.env.MONGOURL)
+    .then(() => {
+      app.listen(process.env.PORT, (req, res) => {
+        console.log(`--Listening to Port,${process.env.PORT}`);
+      });
+    })
+    .catch((err) => {
+      console.log(err.message);
     });
-  })
-  .catch((err) => {
-    console.log(err.message);
+} else {
+  console.log('No MONGOURL provided, starting server without database connection');
+  app.listen(process.env.PORT, (req, res) => {
+    console.log(`--Listening to Port,${process.env.PORT}`);
   });
+}
 
 // Routes
 app.use(userRoutes);
