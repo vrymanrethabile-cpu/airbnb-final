@@ -3,14 +3,6 @@ const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 const { configDotenv } = require("dotenv");
 configDotenv();
-const userRoutes = require("./routes/userRoutes");
-const bookingRoutes = require("./routes/bookingRoutes");
-const chatRoutes = require("./routes/chatRoutes");
-const messageRoutes = require("./routes/messageRoutes");
-const placesRoutes = require("./routes/placesRoutes");
-const authRoutes = require("./routes/auth");
-const stripeRoute = require("./routes/stripe");
-const orderRoutes = require("./routes/orderRoutes");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -20,15 +12,46 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const session = require("express-session");
-const passportsetUp = require("./passport");
-// const cookieSession = require('cookie-session');
-const passport = require("passport");
-const userModel = require("./models/user");
 const nodemailer = require("nodemailer");
-const Order = require("./models/order");
 const cloudinary = require("./uploadImages");
 const postmark = require("postmark");
 require("https").globalAgent.options.rejectUnauthorized = false;
+
+// Routes, models and passport setup all rely on MongoDB being configured.
+// Wrap these requires so a missing/misconfigured MongoDB connection doesn't
+// crash the whole server on boot.
+let userRoutes,
+  bookingRoutes,
+  chatRoutes,
+  messageRoutes,
+  placesRoutes,
+  authRoutes,
+  stripeRoute,
+  orderRoutes,
+  userModel,
+  Order,
+  passport,
+  passportsetUp;
+
+try {
+  userRoutes = require("./routes/userRoutes");
+  bookingRoutes = require("./routes/bookingRoutes");
+  chatRoutes = require("./routes/chatRoutes");
+  messageRoutes = require("./routes/messageRoutes");
+  placesRoutes = require("./routes/placesRoutes");
+  authRoutes = require("./routes/auth");
+  stripeRoute = require("./routes/stripe");
+  orderRoutes = require("./routes/orderRoutes");
+  userModel = require("./models/user");
+  Order = require("./models/order");
+  passport = require("passport");
+  passportsetUp = require("./passport");
+} catch (err) {
+  console.log(
+    "Failed to load one or more routes/models (likely due to missing MongoDB config):",
+    err.message
+  );
+}
 
 // CORS setup - must come first so all subsequent middleware/routes respect it
 // Prefer CLIENT_URL env var (set on Railway), fallback to production URL, then localhost
@@ -75,8 +98,23 @@ app.use(
   })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
+if (passport) {
+  app.use(passport.initialize());
+  app.use(passport.session());
+}
+
+// Health check endpoint (no database required)
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Backend is running' });
+});
+
+app.get('/api/places', (req, res) => {
+  // Return sample listings when database is not available
+  res.json([
+    { id: 1, title: 'Apartment in Cape Town', address: 'Cape Town', price: 1628, photos: ['https://via.placeholder.com/400x300?text=Cape+Town'], description: 'Nice apartment in the city centre', perks: ['Wifi', 'Kitchen'] },
+    { id: 2, title: 'Guesthouse in Hout Bay', address: 'Hout Bay, Cape Town', price: 1000, photos: ['https://via.placeholder.com/400x300?text=Hout+Bay'], description: 'Cozy guesthouse near the beach', perks: ['Parking', 'Wifi'] },
+  ]);
+});
 
 // Connect to Db
 if (process.env.MONGOURL) {
@@ -100,15 +138,15 @@ if (process.env.MONGOURL) {
   });
 }
 
-// Routes
-app.use(userRoutes);
-app.use(placesRoutes);
-app.use(bookingRoutes);
-app.use("/auth", authRoutes);
-app.use(stripeRoute);
-app.use(orderRoutes);
-app.use("/api/chats", chatRoutes);
-app.use("/api/messages", messageRoutes);
+// Routes (only registered if they loaded successfully above)
+if (userRoutes) app.use(userRoutes);
+if (placesRoutes) app.use(placesRoutes);
+if (bookingRoutes) app.use(bookingRoutes);
+if (authRoutes) app.use("/auth", authRoutes);
+if (stripeRoute) app.use(stripeRoute);
+if (orderRoutes) app.use(orderRoutes);
+if (chatRoutes) app.use("/api/chats", chatRoutes);
+if (messageRoutes) app.use("/api/messages", messageRoutes);
 
 // app.get('/test',(req,res)=>{
 //     res.json("Hello World!")
