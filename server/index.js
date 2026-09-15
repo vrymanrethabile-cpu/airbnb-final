@@ -30,6 +30,29 @@ const cloudinary = require("./uploadImages");
 const postmark = require("postmark");
 require("https").globalAgent.options.rejectUnauthorized = false;
 
+// CORS setup - must come first so all subsequent middleware/routes respect it
+// Prefer CLIENT_URL env var (set on Railway), fallback to production URL, then localhost
+const clientUrl =
+  process.env.CLIENT_URL ||
+  (process.env.NODE_ENV === "production"
+    ? "https://airbnb-final-ten.vercel.app"
+    : "http://localhost:3000");
+
+app.use(
+  cors({
+    credentials: true,
+    origin: clientUrl,
+  })
+);
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", clientUrl);
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 // Middleware
 app.use(express.static("public"));
 app.use(cookieParser());
@@ -42,21 +65,6 @@ app.use(
     limit: "50mb",
   })
 );
-// allow requests from vercel frontend when deployed
-var clientUrl = "http://localhost:3000";
-if (process.env.NODE_ENV === "production") {
-  clientUrl = "https://airbnb-final-ten.vercel.app";
-}
-if (process.env.CLIENT_URL) {
-  clientUrl = process.env.CLIENT_URL;
-}
-
-app.use(
-  cors({
-    credentials: true,
-    origin: clientUrl,
-  })
-);
 
 // Social Auth
 app.use(
@@ -66,18 +74,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-
-// Middleware to handle CORS
-app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    clientUrl
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
 
 app.use(passport.initialize());
 app.use(passport.session());
