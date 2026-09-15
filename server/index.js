@@ -42,10 +42,19 @@ app.use(
     limit: "50mb",
   })
 );
+// allow requests from vercel frontend when deployed
+var clientUrl = "http://localhost:3000";
+if (process.env.NODE_ENV === "production") {
+  clientUrl = "https://airbnb-final-ten.vercel.app";
+}
+if (process.env.CLIENT_URL) {
+  clientUrl = process.env.CLIENT_URL;
+}
+
 app.use(
   cors({
     credentials: true,
-    origin: "https://www.airbnb.felixdev.com.ng",
+    origin: clientUrl,
   })
 );
 
@@ -62,7 +71,7 @@ app.use(
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
-    "https://www.airbnb.felixdev.com.ng"
+    clientUrl
   );
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -78,17 +87,20 @@ if (process.env.MONGOURL) {
   mongoose
     .connect(process.env.MONGOURL)
     .then(() => {
-      app.listen(process.env.PORT, (req, res) => {
-        console.log(`--Listening to Port,${process.env.PORT}`);
+      app.listen(process.env.PORT || 4000, (req, res) => {
+        console.log('--Listening to Port,' + (process.env.PORT || 4000));
       });
     })
-    .catch((err) => {
-      console.log(err.message);
+    .catch(function(err) {
+      console.log('mongo connection failed:', err.message);
+      app.listen(process.env.PORT || 4000, function() {
+        console.log('--Listening to Port,' + (process.env.PORT || 4000));
+      });
     });
 } else {
   console.log('No MONGOURL provided, starting server without database connection');
-  app.listen(process.env.PORT, (req, res) => {
-    console.log(`--Listening to Port,${process.env.PORT}`);
+  app.listen(process.env.PORT || 4000, function() {
+    console.log('--Listening to Port,' + (process.env.PORT || 4000));
   });
 }
 

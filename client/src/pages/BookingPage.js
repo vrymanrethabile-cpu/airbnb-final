@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config';
 import './BookingPage.css';
 
 function BookingPage() {
@@ -12,7 +13,7 @@ function BookingPage() {
   useEffect(function() {
     var token = localStorage.getItem('token');
     if (token) {
-      axios.get('http://localhost:4000/bookings/' + id, {
+      axios.get(API_URL + '/bookings/' + id, {
         headers: { Authorization: 'Bearer ' + token }
       })
         .then(function(res) {

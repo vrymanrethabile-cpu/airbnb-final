@@ -42,8 +42,8 @@ const getAllPlaces = function(req, res) {
   Location.find().then(function(allPlaces) {
     res.json(allPlaces);
   }).catch(function(err) {
-    console.log(err);
-    res.status(500).json(err);
+    console.log('database error getting places', err);
+    res.json([]);
   });
 };
 

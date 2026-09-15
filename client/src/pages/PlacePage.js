@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config';
 import './PlacePage.css';
 
 function PlacePage() {
@@ -13,7 +14,7 @@ function PlacePage() {
   let [guests, setGuests] = useState(1);
 
   useEffect(function() {
-    axios.get('http://localhost:4000/places/' + id)
+    axios.get(API_URL + '/places/' + id)
       .then(function(res) {
         setPlace(res.data);
       })

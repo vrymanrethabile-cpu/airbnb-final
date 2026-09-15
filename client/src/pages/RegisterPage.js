@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config';
 import './RegisterPage.css';
 
 function RegisterPage() {
@@ -18,7 +19,7 @@ function RegisterPage() {
       password: password
     };
 
-    axios.post('http://localhost:4000/register', userData)
+    axios.post(API_URL + '/register', userData)
       .then(function(res) {
         console.log('register worked', res.data);
         if (res.data.user) {

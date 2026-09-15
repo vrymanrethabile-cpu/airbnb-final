@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config';
 import './HomePage.css';
 import CardsCarousel from '../components/CardsCarousel';
 
@@ -38,7 +39,7 @@ function HomePage() {
 
   // get all places when page loads
   useEffect(function() {
-    axios.get('http://localhost:4000/allPlaces')
+    axios.get(API_URL + '/allPlaces')
       .then(function(response) {
         var data = response.data;
         if (!Array.isArray(data)) {

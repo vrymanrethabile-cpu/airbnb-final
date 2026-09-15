@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config';
 import './LoginPage.css';
 
 function LoginPage() {
@@ -12,7 +13,7 @@ function LoginPage() {
   function handleLogin(e) {
     e.preventDefault();
 
-    axios.post('http://localhost:4000/login', {
+    axios.post(API_URL + '/login', {
       email: email,
       password: password
     })
