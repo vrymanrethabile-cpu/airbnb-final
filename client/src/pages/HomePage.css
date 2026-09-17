@@ -145,3 +145,309 @@
   color: #717171;
   font-size: 16px;
 }
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  margin-bottom: 40px;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+}
+
+.hero-search h1 {
+  color: white;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.search-bar-hero {
+  display: flex;
+  gap: 12px;
+  background: white;
+  padding: 8px;
+  border-radius: 32px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.search-bar-hero input {
+  flex: 1;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-btn-hero {
+  background: #222;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Inspiration Section */
+.inspiration-section {
+  margin-bottom: 60px;
+}
+
+.inspiration-section h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.inspiration-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.inspiration-card {
+  cursor: pointer;
+}
+
+.inspiration-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.inspiration-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.inspiration-card p {
+  font-size: 14px;
+  color: #717171;
+}
+
+/* Experiences Section */
+.experiences-section {
+  margin-bottom: 60px;
+}
+
+.experiences-section h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.experiences-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+.experience-card {
+  cursor: pointer;
+}
+
+.experience-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.experience-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Gift Cards Section */
+.gift-cards-section {
+  background: linear-gradient(135deg, #FF385C 0%, #E31C5F 100%);
+  color: white;
+  padding: 60px 40px;
+  border-radius: 12px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.gift-cards-section h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.gift-cards-section p {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.shop-btn {
+  background: white;
+  color: #FF385C;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Hosting Promo Section */
+.hosting-promo {
+  background: #f7f7f7;
+  padding: 60px 40px;
+  border-radius: 12px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.hosting-promo h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.hosting-promo p {
+  font-size: 16px;
+  color: #717171;
+  margin-bottom: 24px;
+}
+
+.learn-more-btn {
+  display: inline-block;
+  background: #222;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Getaways Section */
+.getaways-section {
+  margin-bottom: 60px;
+}
+
+.getaways-section h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.getaways-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.getaway-link {
+  text-decoration: none;
+  color: #222;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.getaway-link:hover {
+  background: #f7f7f7;
+  border-color: #222;
+}
+
+/* Places Section */
+.places-section {
+  margin-bottom: 60px;
+}
+
+.places-section h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .homepage {
+    padding: 60px 20px 24px;
+  }
+
+  .hero-section {
+    height: 400px;
+  }
+
+  .hero-content {
+    width: 95%;
+    bottom: 40px;
+  }
+
+  .hero-search h1 {
+    font-size: 24px;
+  }
+
+  .search-bar-hero {
+    flex-direction: column;
+  }
+
+  .search-bar-hero input {
+    width: 100%;
+  }
+
+  .search-bar-hero button {
+    width: 100%;
+  }
+
+  .inspiration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experiences-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gift-cards-section {
+    padding: 40px 20px;
+  }
+
+  .gift-cards-section h2 {
+    font-size: 24px;
+  }
+
+  .hosting-promo {
+    padding: 40px 20px;
+  }
+
+  .getaways-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .places-grid {
+    grid-template-columns: 1fr;
+  }
+}

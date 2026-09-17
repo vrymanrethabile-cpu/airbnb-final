@@ -4,7 +4,7 @@ import './Header.css';
 
 function Header() {
   let [search, setSearch] = useState('');
-  // TODO: add search functionality later
+  // simple search state for now
 
   return (
     <header className="header">
@@ -15,20 +15,20 @@ function Header() {
         </Link>
 
         <div className="search-bar">
-          <button className="search-btn">Anywhere</button>
+          <Link to="/search" className="search-btn">Anywhere</Link>
           <button className="search-btn">Any week</button>
           <button className="search-btn search-btn-add">Add guests</button>
-          <button className="search-icon">
+          <Link to="/search" className="search-icon">
             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style={{display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentColor', strokeWidth: '4', overflow: 'visible'}}>
               <g fill="none">
                 <path d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9"></path>
               </g>
             </svg>
-          </button>
+          </Link>
         </div>
 
         <nav className="nav">
-          <Link to="/" className="nav-link">Become a Host</Link>
+          <Link to="/account/places/create" className="nav-link">Become a Host</Link>
           <button className="nav-link" aria-label="Change language and currency">
             <i className="fa-solid fa-globe"></i>
           </button>

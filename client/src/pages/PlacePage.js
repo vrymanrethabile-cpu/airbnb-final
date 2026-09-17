@@ -40,14 +40,28 @@ function PlacePage() {
     }
   }
 
-  // perks list
+  // perks list with icons
   let perkList = [];
+  let amenityIcons = {
+    'Wifi': '📶',
+    'Kitchen': '🍳',
+    'Air conditioning': '❄️',
+    'Free parking': '🅿️',
+    'Pool': '🏊',
+    'Garden': '🌳',
+    'Washer': '🧺',
+    'Dryer': '👕',
+    'TV': '📺',
+    'Wifi': '📶'
+  };
+  
   if (place.perks) {
     for (let j = 0; j < place.perks.length; j++) {
       let perk = place.perks[j];
+      let icon = amenityIcons[perk] || '✓';
       perkList.push(
         <div key={j} className="amenity">
-          <span>✓</span> {perk}
+          <span className="amenity-icon">{icon}</span> {perk}
         </div>
       );
     }
@@ -61,6 +75,35 @@ function PlacePage() {
   let nightsTotal = place.price * 5;
   let serviceFee = Math.round(place.price * 5 * 0.14);
   let grandTotal = nightsTotal + 500 + serviceFee;
+
+  // sample reviews
+  let reviews = [
+    { name: 'John D.', date: 'September 2024', rating: 5, text: 'Amazing place! Very clean and well-maintained.' },
+    { name: 'Sarah M.', date: 'August 2024', rating: 5, text: 'Great location and wonderful host.' },
+    { name: 'Mike T.', date: 'July 2024', rating: 4, text: 'Good value for money. Would recommend.' }
+  ];
+
+  let reviewCards = [];
+  for (let r = 0; r < reviews.length; r++) {
+    let review = reviews[r];
+    let stars = '';
+    for (let s = 0; s < review.rating; s++) {
+      stars += '★';
+    }
+    reviewCards.push(
+      <div key={r} className="review-card">
+        <div className="review-header">
+          <div className="review-avatar">{review.name.charAt(0)}</div>
+          <div className="review-info">
+            <div className="review-name">{review.name}</div>
+            <div className="review-date">{review.date}</div>
+          </div>
+        </div>
+        <div className="review-rating">{stars}</div>
+        <p className="review-text">{review.text}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="place-page">
@@ -83,6 +126,9 @@ function PlacePage() {
             <div className="gallery-grid">
               {galleryItems}
             </div>
+            {place.photos.length > 5 && (
+              <button className="show-all-photos">Show all photos</button>
+            )}
           </>
         )}
       </div>
@@ -125,6 +171,16 @@ function PlacePage() {
             </div>
           </div>
 
+          {/* Sleeping Arrangements */}
+          <div className="sleeping-section">
+            <h2>Where you'll sleep</h2>
+            <div className="sleeping-card">
+              <img src={place.photos && place.photos[0] ? place.photos[0] : 'https://via.placeholder.com/400x300'} alt="Bedroom" />
+              <h3>Bedroom</h3>
+              <p>1 queen bed</p>
+            </div>
+          </div>
+
           <div className="place-description">
             <h2>About this place</h2>
             <p>{place.description}</p>
@@ -134,6 +190,116 @@ function PlacePage() {
             <h2>What this place offers</h2>
             <div className="amenities-grid">
               {perkList}
+            </div>
+            {place.perks && place.perks.length > 6 && (
+              <button className="show-all-amenities">Show all {place.perks.length} amenities</button>
+            )}
+          </div>
+
+          {/* Date Selection */}
+          <div className="date-selection">
+            <h2>Select dates</h2>
+            <div className="calendar-placeholder">
+              <p>7 nights in {place.address ? place.address.split(',')[0] : 'this location'}</p>
+              <div className="calendar-grid">
+                <div className="calendar-month">
+                  <h3>September 2024</h3>
+                  <div className="calendar-days">
+                    {/* Simplified calendar placeholder */}
+                    <div className="calendar-day">1</div>
+                    <div className="calendar-day">2</div>
+                    <div className="calendar-day">3</div>
+                    <div className="calendar-day">4</div>
+                    <div className="calendar-day">5</div>
+                    <div className="calendar-day">6</div>
+                    <div className="calendar-day">7</div>
+                  </div>
+                </div>
+              </div>
+              <button className="clear-dates">Clear dates</button>
+            </div>
+          </div>
+
+          {/* Reviews Section */}
+          <div className="reviews-section">
+            <h2>★ 5.0 · 7 reviews</h2>
+            <div className="rating-categories">
+              <div className="rating-category">
+                <span>Cleanliness</span>
+                <span>5.0</span>
+              </div>
+              <div className="rating-category">
+                <span>Communication</span>
+                <span>5.0</span>
+              </div>
+              <div className="rating-category">
+                <span>Check-in</span>
+                <span>5.0</span>
+              </div>
+              <div className="rating-category">
+                <span>Accuracy</span>
+                <span>5.0</span>
+              </div>
+              <div className="rating-category">
+                <span>Location</span>
+                <span>5.0</span>
+              </div>
+              <div className="rating-category">
+                <span>Value</span>
+                <span>5.0</span>
+              </div>
+            </div>
+            <div className="reviews-list">
+              {reviewCards}
+            </div>
+            <button className="show-all-reviews">Show all 7 reviews</button>
+          </div>
+
+          {/* Host Section */}
+          <div className="host-section">
+            <h2>Hosted by Host</h2>
+            <div className="host-info">
+              <div className="host-avatar">H</div>
+              <div className="host-details">
+                <p>7 reviews</p>
+                <p>Identity verified</p>
+                <p>Superhost</p>
+              </div>
+            </div>
+            <p className="host-description">Your host is dedicated to making your stay comfortable and memorable.</p>
+            <div className="host-response">
+              <p><strong>Response rate:</strong> 100%</p>
+              <p><strong>Response time:</strong> Within an hour</p>
+            </div>
+            <button className="contact-host-btn">Contact Host</button>
+          </div>
+
+          {/* Things to Know */}
+          <div className="things-to-know">
+            <h2>Things to know</h2>
+            <div className="things-grid">
+              <div className="thing-column">
+                <h3>House rules</h3>
+                <p>Check-in: 3:00 PM</p>
+                <p>Check-out: 11:00 AM</p>
+                <p>Self check-in</p>
+                <p>No smoking</p>
+                <p>No pets</p>
+                <p>No parties/events</p>
+              </div>
+              <div className="thing-column">
+                <h3>Health & safety</h3>
+                <p>Enhanced cleaning</p>
+                <p>COVID-19 guidelines followed</p>
+                <p>Carbon monoxide alarm</p>
+                <p>Smoke alarm</p>
+                <p>Security deposit</p>
+              </div>
+              <div className="thing-column">
+                <h3>Cancellation policy</h3>
+                <p>Free cancellation before 48 hours of check-in</p>
+                <button className="show-more">Show more</button>
+              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../config';
 import './HomePage.css';
-import CardsCarousel from '../components/CardsCarousel';
 
 function HomePage() {
   let [places, setPlaces] = useState([]);
@@ -88,10 +87,95 @@ function HomePage() {
 
   return (
     <div className="homepage">
-      <CardsCarousel />
+      {/* Hero Section */}
+      <div className="hero-section">
+        <div className="hero-image">
+          <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1600" alt="Modern house" />
+        </div>
+        <div className="hero-content">
+          <div className="hero-search">
+            <h1>Not sure where to go? Perfect.</h1>
+            <div className="search-bar-hero">
+              <input type="text" placeholder="Search destinations..." />
+              <button className="search-btn-hero">I'm flexible</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div className="places-grid">
-        {placeCards}
+      {/* Inspiration Section */}
+      <div className="inspiration-section">
+        <h2>Inspiration for your next trip</h2>
+        <div className="inspiration-grid">
+          <div className="inspiration-card">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" alt="Sandton City Hotel" />
+            <h3>Sandton City Hotel</h3>
+            <p>Johannesburg</p>
+          </div>
+          <div className="inspiration-card">
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400" alt="Joburg City Hotel" />
+            <h3>Joburg City Hotel</h3>
+            <p>Johannesburg</p>
+          </div>
+          <div className="inspiration-card">
+            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400" alt="Woodmead Hotel" />
+            <h3>Woodmead Hotel</h3>
+            <p>Johannesburg</p>
+          </div>
+          <div className="inspiration-card">
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400" alt="Hyde Park Hotel" />
+            <h3>Hyde Park Hotel</h3>
+            <p>Johannesburg</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Experiences Section */}
+      <div className="experiences-section">
+        <h2>Discover Airbnb Experiences</h2>
+        <div className="experiences-grid">
+          <div className="experience-card">
+            <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=400" alt="Things to do on your trip" />
+            <h3>Things to do on your trip</h3>
+          </div>
+          <div className="experience-card">
+            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=400" alt="Things to do from home" />
+            <h3>Things to do from home</h3>
+          </div>
+        </div>
+      </div>
+
+      {/* Gift Cards Section */}
+      <div className="gift-cards-section">
+        <h2>Shop Airbnb gift cards</h2>
+        <p>Give the gift of travel with Airbnb gift cards</p>
+        <button className="shop-btn">Shop now</button>
+      </div>
+
+      {/* Hosting Promo Section */}
+      <div className="hosting-promo">
+        <h2>Questions about hosting?</h2>
+        <p>Learn how to become a host and earn money sharing your space</p>
+        <Link to="/account" className="learn-more-btn">Learn more</Link>
+      </div>
+
+      {/* Future Getaways Section */}
+      <div className="getaways-section">
+        <h2>Inspiration for future getaways</h2>
+        <div className="getaways-grid">
+          <Link to="/" className="getaway-link">Cape Town</Link>
+          <Link to="/" className="getaway-link">Durban</Link>
+          <Link to="/" className="getaway-link">Garden Route</Link>
+          <Link to="/" className="getaway-link">Kruger National Park</Link>
+        </div>
+      </div>
+
+      {/* Places Grid */}
+      <div className="places-section">
+        <h2>Places to stay</h2>
+        <div className="places-grid">
+          {placeCards}
+        </div>
       </div>
     </div>
   );
