@@ -11,6 +11,7 @@ import BookingPage from './pages/BookingPage';
 import AccountPage from './pages/AccountPage';
 import SearchPage from './pages/SearchPage';
 import CreateListingPage from './pages/CreateListingPage';
+import UpdateListingPage from './pages/UpdateListingPage';
 import HostDashboardPage from './pages/HostDashboardPage';
 import HostReservationsPage from './pages/HostReservationsPage';
 import './App.css';
@@ -32,6 +33,7 @@ function App() {
             <Route path="/account" element={<AccountPage />} />
             <Route path="/account/places" element={<HostDashboardPage />} />
             <Route path="/account/places/create" element={<CreateListingPage />} />
+            <Route path="/account/places/:id/edit" element={<UpdateListingPage />} />
             <Route path="/account/reservations" element={<HostReservationsPage />} />
           </Routes>
         </main>

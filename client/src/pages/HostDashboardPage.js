@@ -82,7 +82,7 @@ function HostDashboardPage() {
           <p className="listing-rating">★ 4.95 · {Math.floor(Math.random() * 50) + 10} reviews</p>
           <p className="listing-price">R{place.price} <span>night</span></p>
           <div className="listing-actions">
-            <Link to={'/account/places/' + place._id + '/edit'} className="update-btn">Update</Link>
+            <Link to={'/account/places/' + place._id + '/edit'} className="update-btn">Edit</Link>
             <button onClick={function() { handleDelete(place._id); }} className="delete-btn">Delete</button>
           </div>
         </div>

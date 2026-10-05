@@ -1,10 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
 function Header() {
   let [search, setSearch] = useState('');
-  // simple search state for now
+  let [user, setUser] = useState(null);
+  let [showDropdown, setShowDropdown] = useState(false);
+
+  // check if user is logged in
+  useEffect(function() {
+    var userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
+
+  function handleLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    setShowDropdown(false);
+    window.location.href = '/';
+  }
+
+  function toggleDropdown() {
+    setShowDropdown(!showDropdown);
+  }
 
   return (
     <header className="header">
@@ -40,9 +61,48 @@ function Header() {
             </svg>
           </button>
 
-          <Link to="/account" className="user-menu">
-            <i className="fa-solid fa-circle-user"></i>
-          </Link>
+          <div className="user-menu-container">
+            <button className="user-menu" onClick={toggleDropdown}>
+              <i className="fa-solid fa-circle-user"></i>
+              {user && <span className="user-name">{user.name.charAt(0)}</span>}
+            </button>
+            
+            {showDropdown && (
+              <div className="dropdown-menu">
+                {user ? (
+                  <>
+                    <div className="dropdown-header">
+                      <span>Hello, {user.name}</span>
+                    </div>
+                    <Link to="/account" className="dropdown-item" onClick={function() { setShowDropdown(false); }}>
+                      Account
+                    </Link>
+                    <Link to="/account/bookings" className="dropdown-item" onClick={function() { setShowDropdown(false); }}>
+                      My Reservations
+                    </Link>
+                    <Link to="/account/places" className="dropdown-item" onClick={function() { setShowDropdown(false); }}>
+                      My Listings
+                    </Link>
+                    <Link to="/account/places/create" className="dropdown-item" onClick={function() { setShowDropdown(false); }}>
+                      Create Listing
+                    </Link>
+                    <button className="dropdown-item logout-btn" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login" className="dropdown-item" onClick={function() { setShowDropdown(false); }}>
+                      Login
+                    </Link>
+                    <Link to="/register" className="dropdown-item" onClick={function() { setShowDropdown(false); }}>
+                      Register
+                    </Link>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
         </nav>
       </div>
     </header>

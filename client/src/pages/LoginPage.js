@@ -7,17 +7,47 @@ import './LoginPage.css';
 function LoginPage() {
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
+  let [error, setError] = useState('');
+  let [loading, setLoading] = useState(false);
   let navigate = useNavigate();
+
+  // validate email format
+  function validateEmail(email) {
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
 
   // when user clicks continue we send login request
   function handleLogin(e) {
     e.preventDefault();
+    setError('');
+
+    // validate inputs
+    if (!email) {
+      setError('Please enter your email');
+      return;
+    }
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+    if (!password) {
+      setError('Please enter your password');
+      return;
+    }
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
+    setLoading(true);
 
     axios.post(API_URL + '/login', {
       email: email,
       password: password
     })
       .then(function(res) {
+        setLoading(false);
         // store user info in localStorage so we stay logged in
         if (res.data.token) {
           localStorage.setItem('token', res.data.token);
@@ -31,17 +61,24 @@ function LoginPage() {
         navigate('/');
       })
       .catch(function(err) {
+        setLoading(false);
         console.log('login error', err);
-        alert('login failed - check email and password');
+        if (err.response && err.response.data) {
+          setError(err.response.data.message || 'Login failed. Please check your email and password.');
+        } else {
+          setError('Login failed. Please check your email and password.');
+        }
       });
   }
 
   function onEmailChange(e) {
     setEmail(e.target.value);
+    setError('');
   }
 
   function onPasswordChange(e) {
     setPassword(e.target.value);
+    setError('');
   }
 
   return (
@@ -71,6 +108,12 @@ function LoginPage() {
             <span>or</span>
           </div>
 
+          {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
+
           <div className="form-group">
             <input
               type="email"
@@ -91,7 +134,9 @@ function LoginPage() {
             />
           </div>
 
-          <button type="submit" className="auth-submit">Continue</button>
+          <button type="submit" className="auth-submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Continue'}
+          </button>
         </form>
 
         <div className="auth-footer">
