@@ -134,3 +134,24 @@
   text-decoration: underline;
   font-weight: 500;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 60px 20px 24px;
+  }
+
+  .auth-header h1 {
+    font-size: 24px;
+  }
+
+  .social-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .form-group input {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
