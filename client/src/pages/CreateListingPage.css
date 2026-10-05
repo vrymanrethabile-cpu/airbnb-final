@@ -248,6 +248,21 @@
   background: linear-gradient(to right, #D70466 0%, #C31162 50%, #B0105E 100%);
 }
 
+.create-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  border: 1px solid #ffcdd2;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .create-listing-page {

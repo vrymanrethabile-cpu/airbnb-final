@@ -23,6 +23,8 @@ function CreateListingPage() {
 
   let [photoLinks, setPhotoLinks] = useState('');
   let [perkInput, setPerkInput] = useState('');
+  let [error, setError] = useState('');
+  let [loading, setLoading] = useState(false);
 
   function handleInputChange(e) {
     let value = e.target.value;
@@ -80,17 +82,37 @@ function CreateListingPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
+    setError('');
+
+    // validate form
+    if (!formData.title || !formData.address || !formData.description || !formData.price) {
+      setError('Please fill in all required fields');
+      return;
+    }
+
+    setLoading(true);
+
     try {
       let token = localStorage.getItem('token');
+      if (!token) {
+        setError('Please login to create a listing');
+        setLoading(false);
+        return;
+      }
+
       let res = await axios.post(ACCOMMODATIONS_URL, formData, {
         headers: { Authorization: 'Bearer ' + token }
       });
       console.log('listing created', res.data);
       navigate('/account/places');
     } catch (err) {
+      setLoading(false);
       console.log('error creating listing', err);
-      alert('Failed to create listing');
+      if (err.response && err.response.data) {
+        setError(err.response.data.message || 'Failed to create listing');
+      } else {
+        setError('Failed to create listing. Please try again.');
+      }
     }
   }
 
@@ -102,6 +124,12 @@ function CreateListingPage() {
     <div className="create-listing-page">
       <div className="create-listing-container">
         <h1>Create Listing</h1>
+        
+        {error && (
+          <div className="error-message">
+            {error}
+          </div>
+        )}
         
         <form onSubmit={handleSubmit} className="listing-form">
           <div className="form-section">
@@ -277,8 +305,10 @@ function CreateListingPage() {
           </div>
 
           <div className="form-actions">
-            <button type="button" className="cancel-btn" onClick={handleCancel}>Cancel</button>
-            <button type="submit" className="create-btn">Create</button>
+            <button type="button" className="cancel-btn" onClick={handleCancel} disabled={loading}>Cancel</button>
+            <button type="submit" className="create-btn" disabled={loading}>
+              {loading ? 'Creating...' : 'Create'}
+            </button>
           </div>
         </form>
       </div>

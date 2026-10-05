@@ -4,7 +4,9 @@ import axios from 'axios';
 import API_URL, { ACCOMMODATIONS_URL } from '../config';
 import './HomePage.css';
 
+// HomePage component - displays hero section, inspiration, experiences, and place listings
 function HomePage() {
+  // state for storing all places from the API
   let [places, setPlaces] = useState([]);
 
   // remove duplicates - learned this from stackoverflow
@@ -36,7 +38,7 @@ function HomePage() {
     return result;
   }
 
-  // get all places when page loads
+  // fetch all places from API when component mounts
   useEffect(function() {
     axios.get(ACCOMMODATIONS_URL)
       .then(function(response) {
@@ -106,26 +108,27 @@ function HomePage() {
       {/* Inspiration Section */}
       <div className="inspiration-section">
         <h2>Inspiration for your next trip</h2>
+        <p>Discover popular destinations and unique stays</p>
         <div className="inspiration-grid">
           <div className="inspiration-card">
-            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" alt="Sandton City Hotel" />
-            <h3>Sandton City Hotel</h3>
-            <p>Johannesburg</p>
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" alt="Cape Town" />
+            <h3>Cape Town</h3>
+            <p>Table Mountain views</p>
           </div>
           <div className="inspiration-card">
-            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400" alt="Joburg City Hotel" />
-            <h3>Joburg City Hotel</h3>
-            <p>Johannesburg</p>
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400" alt="Durban" />
+            <h3>Durban</h3>
+            <p>Golden Mile Beach</p>
           </div>
           <div className="inspiration-card">
-            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400" alt="Woodmead Hotel" />
-            <h3>Woodmead Hotel</h3>
-            <p>Johannesburg</p>
+            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400" alt="Kruger National Park" />
+            <h3>Kruger National Park</h3>
+            <p>Wildlife Safari</p>
           </div>
           <div className="inspiration-card">
-            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400" alt="Hyde Park Hotel" />
-            <h3>Hyde Park Hotel</h3>
-            <p>Johannesburg</p>
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400" alt="Garden Route" />
+            <h3>Garden Route</h3>
+            <p>Scenic Coastal Drive</p>
           </div>
         </div>
       </div>
@@ -133,14 +136,17 @@ function HomePage() {
       {/* Experiences Section */}
       <div className="experiences-section">
         <h2>Discover Airbnb Experiences</h2>
+        <p>Find activities led by local hosts</p>
         <div className="experiences-grid">
           <div className="experience-card">
             <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=400" alt="Things to do on your trip" />
             <h3>Things to do on your trip</h3>
+            <p>Explore local activities</p>
           </div>
           <div className="experience-card">
             <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=400" alt="Things to do from home" />
             <h3>Things to do from home</h3>
+            <p>Online experiences</p>
           </div>
         </div>
       </div>
@@ -154,19 +160,19 @@ function HomePage() {
 
       {/* Hosting Promo Section */}
       <div className="hosting-promo">
-        <h2>Questions about hosting?</h2>
+        <h2>Become a Host</h2>
         <p>Learn how to become a host and earn money sharing your space</p>
-        <Link to="/account" className="learn-more-btn">Learn more</Link>
+        <Link to="/account/places/create" className="learn-more-btn">Get started</Link>
       </div>
 
       {/* Future Getaways Section */}
       <div className="getaways-section">
         <h2>Inspiration for future getaways</h2>
         <div className="getaways-grid">
-          <Link to="/" className="getaway-link">Cape Town</Link>
-          <Link to="/" className="getaway-link">Durban</Link>
-          <Link to="/" className="getaway-link">Garden Route</Link>
-          <Link to="/" className="getaway-link">Kruger National Park</Link>
+          <Link to="/search" className="getaway-link">Cape Town</Link>
+          <Link to="/search" className="getaway-link">Durban</Link>
+          <Link to="/search" className="getaway-link">Garden Route</Link>
+          <Link to="/search" className="getaway-link">Kruger National Park</Link>
         </div>
       </div>
 

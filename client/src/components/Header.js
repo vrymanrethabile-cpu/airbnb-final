@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
+// Header component - displays logo, search bar, navigation, and user menu with dropdown
 function Header() {
   let [search, setSearch] = useState('');
   let [user, setUser] = useState(null);
   let [showDropdown, setShowDropdown] = useState(false);
 
-  // check if user is logged in
+  // check if user is logged in on component mount
   useEffect(function() {
     var userData = localStorage.getItem('user');
     if (userData) {
@@ -15,6 +16,7 @@ function Header() {
     }
   }, []);
 
+  // handle user logout - clear localStorage and redirect
   function handleLogout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -23,6 +25,7 @@ function Header() {
     window.location.href = '/';
   }
 
+  // toggle dropdown menu visibility
   function toggleDropdown() {
     setShowDropdown(!showDropdown);
   }
