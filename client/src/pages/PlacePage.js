@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import API_URL from '../config';
+import API_URL, { ACCOMMODATIONS_URL } from '../config';
 import './PlacePage.css';
 
 function PlacePage() {
@@ -14,7 +14,7 @@ function PlacePage() {
   let [guests, setGuests] = useState(1);
 
   useEffect(function() {
-    axios.get(API_URL + '/places/' + id)
+    axios.get(ACCOMMODATIONS_URL + '/' + id)
       .then(function(res) {
         setPlace(res.data);
       })
@@ -72,9 +72,24 @@ function PlacePage() {
     bedroomCount = place.photos.length;
   }
 
-  let nightsTotal = place.price * 5;
-  let serviceFee = Math.round(place.price * 5 * 0.14);
-  let grandTotal = nightsTotal + 500 + serviceFee;
+  // calculate nights based on selected dates
+  let nights = 5; // default
+  if (checkIn && checkOut) {
+    let checkInDate = new Date(checkIn);
+    let checkOutDate = new Date(checkOut);
+    let diffTime = Math.abs(checkOutDate - checkInDate);
+    nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  let nightsTotal = place.price * nights;
+  let cleaningFee = 500;
+  let serviceFee = Math.round(nightsTotal * 0.14);
+  let weeklyDiscount = 0;
+  if (nights >= 7) {
+    weeklyDiscount = Math.round(nightsTotal * 0.1);
+  }
+  let taxes = Math.round((nightsTotal - weeklyDiscount) * 0.05);
+  let grandTotal = nightsTotal - weeklyDiscount + cleaningFee + serviceFee + taxes;
 
   // sample reviews
   let reviews = [
@@ -348,16 +363,26 @@ function PlacePage() {
 
             <div className="booking-total">
               <div className="total-row">
-                <span>R{place.price} x 5 nights</span>
+                <span>R{place.price} x {nights} nights</span>
                 <span>R{nightsTotal}</span>
               </div>
+              {weeklyDiscount > 0 && (
+                <div className="total-row">
+                  <span>Weekly discount</span>
+                  <span>-R{weeklyDiscount}</span>
+                </div>
+              )}
               <div className="total-row">
                 <span>Cleaning fee</span>
-                <span>R500</span>
+                <span>R{cleaningFee}</span>
               </div>
               <div className="total-row">
                 <span>Service fee</span>
                 <span>R{serviceFee}</span>
+              </div>
+              <div className="total-row">
+                <span>Occupancy taxes</span>
+                <span>R{taxes}</span>
               </div>
               <div className="total-divider"></div>
               <div className="total-row total">

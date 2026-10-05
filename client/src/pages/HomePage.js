@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import API_URL from '../config';
+import API_URL, { ACCOMMODATIONS_URL } from '../config';
 import './HomePage.css';
 
 function HomePage() {
@@ -38,7 +38,7 @@ function HomePage() {
 
   // get all places when page loads
   useEffect(function() {
-    axios.get(API_URL + '/allPlaces')
+    axios.get(ACCOMMODATIONS_URL)
       .then(function(response) {
         var data = response.data;
         if (!Array.isArray(data)) {

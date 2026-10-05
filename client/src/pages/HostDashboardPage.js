@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import API_URL from '../config';
+import API_URL, { ACCOMMODATIONS_URL } from '../config';
 import './HostDashboardPage.css';
 
 function HostDashboardPage() {
@@ -18,7 +18,7 @@ function HostDashboardPage() {
   useEffect(function() {
     var token = localStorage.getItem('token');
     if (token) {
-      axios.get(API_URL + '/user-places', {
+      axios.get(ACCOMMODATIONS_URL + '/user/my-accommodations', {
         headers: { Authorization: 'Bearer ' + token }
       })
         .then(function(res) {
@@ -37,7 +37,7 @@ function HostDashboardPage() {
 
     try {
       var token = localStorage.getItem('token');
-      await axios.delete(API_URL + '/places/' + placeId, {
+      await axios.delete(ACCOMMODATIONS_URL + '/' + placeId, {
         headers: { Authorization: 'Bearer ' + token }
       });
       setPlaces(places.filter(function(p) { return p._id !== placeId; }));

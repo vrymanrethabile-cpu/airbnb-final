@@ -148,6 +148,16 @@ if (orderRoutes) app.use(orderRoutes);
 if (chatRoutes) app.use("/api/chats", chatRoutes);
 if (messageRoutes) app.use("/api/messages", messageRoutes);
 
+// New accommodations and reservations routes
+try {
+  const accommodationsRoutes = require('./routes/accommodations');
+  const reservationsRoutes = require('./routes/reservations');
+  app.use('/api/accommodations', accommodationsRoutes);
+  app.use('/api/reservations', reservationsRoutes);
+} catch (err) {
+  console.log('Failed to load new routes:', err.message);
+}
+
 // app.get('/test',(req,res)=>{
 //     res.json("Hello World!")
 // })

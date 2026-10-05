@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import API_URL from '../config';
+import API_URL, { RESERVATIONS_URL } from '../config';
 import './HostReservationsPage.css';
 
 function HostReservationsPage() {
@@ -18,7 +18,7 @@ function HostReservationsPage() {
   useEffect(function() {
     var token = localStorage.getItem('token');
     if (token) {
-      axios.get(API_URL + '/bookings', {
+      axios.get(RESERVATIONS_URL, {
         headers: { Authorization: 'Bearer ' + token }
       })
         .then(function(res) {
@@ -37,7 +37,7 @@ function HostReservationsPage() {
 
     try {
       var token = localStorage.getItem('token');
-      await axios.delete(API_URL + '/bookings/' + bookingId, {
+      await axios.delete(RESERVATIONS_URL + '/' + bookingId, {
         headers: { Authorization: 'Bearer ' + token }
       });
       setBookings(bookings.filter(function(b) { return b._id !== bookingId; }));

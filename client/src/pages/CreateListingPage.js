@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import API_URL from '../config';
+import API_URL, { ACCOMMODATIONS_URL } from '../config';
 import './CreateListingPage.css';
 
 function CreateListingPage() {
@@ -83,11 +83,11 @@ function CreateListingPage() {
     
     try {
       let token = localStorage.getItem('token');
-      let res = await axios.post(API_URL + '/places', formData, {
+      let res = await axios.post(ACCOMMODATIONS_URL, formData, {
         headers: { Authorization: 'Bearer ' + token }
       });
       console.log('listing created', res.data);
-      navigate('/account');
+      navigate('/account/places');
     } catch (err) {
       console.log('error creating listing', err);
       alert('Failed to create listing');
@@ -95,7 +95,7 @@ function CreateListingPage() {
   }
 
   function handleCancel() {
-    navigate('/account');
+    navigate('/account/places');
   }
 
   return (
