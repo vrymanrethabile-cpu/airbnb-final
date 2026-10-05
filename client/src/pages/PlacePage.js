@@ -27,6 +27,31 @@ function PlacePage() {
     return <div className="loading">Loading...</div>;
   }
 
+  // build gallery images
+  var galleryImages = [];
+  if (place.photos && place.photos.length > 0) {
+    for (var i = 0; i < place.photos.length; i++) {
+      galleryImages.push(
+        <div key={i} className="gallery-item">
+          <img src={place.photos[i]} alt={place.title} />
+        </div>
+      );
+    }
+  }
+
+  // build features list
+  var featuresList = [];
+  if (place.perks && place.perks.length > 0) {
+    for (var f = 0; f < place.perks.length; f++) {
+      featuresList.push(
+        <div key={f} className="feature-item">
+          <span className="feature-icon">✓</span>
+          <span>{place.perks[f]}</span>
+        </div>
+      );
+    }
+  }
+
   // build gallery images with a loop instead of map
   let galleryItems = [];
   if (place.photos && place.photos.length > 1) {
@@ -122,66 +147,106 @@ function PlacePage() {
 
   return (
     <div className="place-page">
-      <div className="place-header">
-        <h1>{place.title}</h1>
-        <div className="place-location-header">
-          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style={{display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentColor', strokeWidth: '2', overflow: 'visible'}}>
-            <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836l.145.353c.667 1.591.91 2.472.96 3.396l.01.415.001.228c0 4.062-2.877 6.478-6.357 6.478-2.224 0-4.556-1.258-6.709-3.386l-.257-.26-.172-.179h-.212l-.172.179-.257.26c-2.153 2.128-4.486 3.386-6.71 3.386C5.377 31 2.5 28.584 2.5 24.522l.001-.228.01-.415c.05-.924.293-1.805.96-3.396l.145-.353c.986-2.296 5.146-11.006 7.1-14.836l.533-1.025C12.537 1.963 13.992 1 16 1z"></path>
-          </svg>
-          <span>{place.address}</span>
-        </div>
-      </div>
-
-      <div className="place-gallery">
-        {place.photos && place.photos.length > 0 && (
-          <>
-            <div className="gallery-main">
-              <img src={place.photos[0]} alt={place.title} />
-            </div>
-            <div className="gallery-grid">
-              {galleryItems}
-            </div>
-            {place.photos.length > 5 && (
-              <button className="show-all-photos">Show all photos</button>
-            )}
-          </>
-        )}
-      </div>
-
       <div className="place-content">
-        <div className="place-details">
-          <div className="place-host">
-            <h2>Entire home hosted by Host</h2>
-            <p>{place.guests} guests · {bedroomCount} bedrooms · 1 bed · 1 bath</p>
+        <div className="place-main">
+          <div className="place-header">
+            <h1>{place.title}</h1>
+            <div className="place-subheader">
+              <span className="place-rating">★ 4.95 · 128 reviews</span>
+              <span className="place-location">{place.address}</span>
+              <span className="place-superhost">Superhost</span>
+            </div>
           </div>
 
-          <div className="place-features">
-            <div className="feature">
-              <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style={{display: 'block', fill: 'none', height: '24px', width: '24px', stroke: 'currentColor', strokeWidth: '2', overflow: 'visible'}}>
-                <path d="M16 28a7 7 0 0 1-7-7c0-2.38 1.19-4.47 3-5.74V7a4 4 0 0 1 8 0v8.26c1.81 1.27 3 3.36 3 5.74a7 7 0 0 1-7 7z"></path>
-              </svg>
-              <div>
-                <h3>Dedicated workspace</h3>
-                <p>A dedicated workspace with wifi</p>
+          <div className="gallery">
+            {galleryImages}
+          </div>
+
+          <div className="place-details-section">
+            <div className="place-info">
+              <div className="host-info">
+                <h2>Entire home hosted by {place.owner ? place.owner.name : 'Host'}</h2>
+                <div className="host-details">
+                  <p>{place.guests} guests</p>
+                  <p>{place.bedrooms || 2} bedrooms</p>
+                  <p>{place.beds || 3} beds</p>
+                  <p>{place.baths || 2} baths</p>
+                </div>
+              </div>
+
+              <div className="description">
+                <h2>About this space</h2>
+                <p>{place.description}</p>
+              </div>
+
+              <div className="amenities">
+                <h2>What this place offers</h2>
+                {perkList}
               </div>
             </div>
-            <div className="feature">
-              <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style={{display: 'block', fill: 'none', height: '24px', width: '24px', stroke: 'currentColor', strokeWidth: '2', overflow: 'visible'}}>
-                <path d="M27 18v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-9"></path>
-                <path d="M9 18V9a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v9"></path>
-              </svg>
-              <div>
-                <h3>Self check-in</h3>
-                <p>Check yourself in with the lockbox</p>
+
+            <div className="booking-sidebar">
+              <div className="booking-card">
+                <div className="booking-header">
+                  <div className="booking-price">
+                    <span className="price">R{place.price}</span>
+                    <span className="per-night">night</span>
+                  </div>
+                  <div className="booking-rating">★ 4.95 · 128 reviews</div>
+                </div>
+                <div className="booking-dates">
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Check-in</label>
+                      <input type="date" value={checkIn} onChange={function(e) { setCheckIn(e.target.value); }} />
+                    </div>
+                    <div className="form-group">
+                      <label>Check-out</label>
+                      <input type="date" value={checkOut} onChange={function(e) { setCheckOut(e.target.value); }} />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Guests</label>
+                    <select value={guests} onChange={function(e) { setGuests(e.target.value); }}>
+                      <option value={1}>1 guest</option>
+                      <option value={2}>2 guests</option>
+                      <option value={3}>3 guests</option>
+                      <option value={4}>4+ guests</option>
+                    </select>
+                  </div>
+                </div>
+                <button className="reserve-btn">Reserve</button>
+                <p className="no-charge">You won't be charged yet</p>
               </div>
-            </div>
-            <div className="feature">
-              <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style={{display: 'block', fill: 'none', height: '24px', width: '24px', stroke: 'currentColor', strokeWidth: '2', overflow: 'visible'}}>
-                <path d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"></path>
-              </svg>
-              <div>
-                <h3>Free parking</h3>
-                <p>Premises has 2 free parking spots</p>
+
+              <div className="booking-total">
+                <div className="total-row">
+                  <span>R{place.price} x {nights} nights</span>
+                  <span>R{nightsTotal}</span>
+                </div>
+                {weeklyDiscount > 0 && (
+                  <div className="total-row">
+                    <span>Weekly discount</span>
+                    <span>-R{weeklyDiscount}</span>
+                  </div>
+                )}
+                <div className="total-row">
+                  <span>Cleaning fee</span>
+                  <span>R{cleaningFee}</span>
+                </div>
+                <div className="total-row">
+                  <span>Service fee</span>
+                  <span>R{serviceFee}</span>
+                </div>
+                <div className="total-row">
+                  <span>Occupancy taxes</span>
+                  <span>R{taxes}</span>
+                </div>
+                <div className="total-divider"></div>
+                <div className="total-row total">
+                  <span>Total</span>
+                  <span>R{grandTotal}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -191,44 +256,33 @@ function PlacePage() {
             <h2>Where you'll sleep</h2>
             <div className="sleeping-card">
               <img src={place.photos && place.photos[0] ? place.photos[0] : 'https://via.placeholder.com/400x300'} alt="Bedroom" />
-              <h3>Bedroom</h3>
-              <p>1 queen bed</p>
+              <h3>Bedroom 1</h3>
+              <p>{place.bedrooms || 2} queen bed</p>
             </div>
           </div>
 
-          <div className="place-description">
-            <h2>About this place</h2>
-            <p>{place.description}</p>
-          </div>
-
-          <div className="place-amenities">
+          {/* Amenities with Icons */}
+          <div className="amenities-section">
             <h2>What this place offers</h2>
-            <div className="amenities-grid">
+            <div className="amenities-list">
               {perkList}
             </div>
-            {place.perks && place.perks.length > 6 && (
-              <button className="show-all-amenities">Show all {place.perks.length} amenities</button>
-            )}
+            <button className="show-all-amenities">Show all amenities</button>
           </div>
 
           {/* Date Selection */}
           <div className="date-selection">
             <h2>Select dates</h2>
             <div className="calendar-placeholder">
-              <p>7 nights in {place.address ? place.address.split(',')[0] : 'this location'}</p>
-              <div className="calendar-grid">
-                <div className="calendar-month">
-                  <h3>September 2024</h3>
-                  <div className="calendar-days">
-                    {/* Simplified calendar placeholder */}
-                    <div className="calendar-day">1</div>
-                    <div className="calendar-day">2</div>
-                    <div className="calendar-day">3</div>
-                    <div className="calendar-day">4</div>
-                    <div className="calendar-day">5</div>
-                    <div className="calendar-day">6</div>
-                    <div className="calendar-day">7</div>
-                  </div>
+              <p>Select your check-in and check-out dates to see availability and pricing</p>
+              <div className="calendar-month">
+                <h3>October 2024</h3>
+                <div className="calendar-days">
+                  {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31].map(function(day) {
+                    return (
+                      <div key={day} className="calendar-day">{day}</div>
+                    );
+                  })}
                 </div>
               </div>
               <button className="clear-dates">Clear dates</button>
@@ -237,7 +291,7 @@ function PlacePage() {
 
           {/* Reviews Section */}
           <div className="reviews-section">
-            <h2>★ 5.0 · 7 reviews</h2>
+            <h2>Reviews</h2>
             <div className="rating-categories">
               <div className="rating-category">
                 <span>Cleanliness</span>
@@ -267,26 +321,27 @@ function PlacePage() {
             <div className="reviews-list">
               {reviewCards}
             </div>
-            <button className="show-all-reviews">Show all 7 reviews</button>
+            <button className="show-all-reviews">Show all reviews</button>
           </div>
 
           {/* Host Section */}
           <div className="host-section">
-            <h2>Hosted by Host</h2>
+            <h2>Meet your host</h2>
             <div className="host-info">
               <div className="host-avatar">H</div>
               <div className="host-details">
-                <p>7 reviews</p>
-                <p>Identity verified</p>
-                <p>Superhost</p>
+                <p><strong>Hosted by {place.owner ? place.owner.name : 'Host'}</strong></p>
+                <p>Superhost · 5 years hosting</p>
               </div>
             </div>
-            <p className="host-description">Your host is dedicated to making your stay comfortable and memorable.</p>
+            <div className="host-description">
+              <p>I'm a passionate host who loves sharing beautiful spaces with travelers from around the world.</p>
+            </div>
             <div className="host-response">
               <p><strong>Response rate:</strong> 100%</p>
-              <p><strong>Response time:</strong> Within an hour</p>
+              <p><strong>Response time:</strong> within an hour</p>
             </div>
-            <button className="contact-host-btn">Contact Host</button>
+            <button className="contact-host-btn">Contact host</button>
           </div>
 
           {/* Things to Know */}
@@ -295,99 +350,24 @@ function PlacePage() {
             <div className="things-grid">
               <div className="thing-column">
                 <h3>House rules</h3>
-                <p>Check-in: 3:00 PM</p>
-                <p>Check-out: 11:00 AM</p>
-                <p>Self check-in</p>
+                <p>Check-in: 2:00 PM - 10:00 PM</p>
+                <p>Checkout before 11:00 AM</p>
+                <p>Self check-in with keypad</p>
                 <p>No smoking</p>
                 <p>No pets</p>
-                <p>No parties/events</p>
+                <p>No parties or events</p>
               </div>
               <div className="thing-column">
-                <h3>Health & safety</h3>
-                <p>Enhanced cleaning</p>
-                <p>COVID-19 guidelines followed</p>
+                <h3>Safety & property</h3>
                 <p>Carbon monoxide alarm</p>
                 <p>Smoke alarm</p>
-                <p>Security deposit</p>
+                <p>First aid kit</p>
+                <p>Fire extinguisher</p>
               </div>
               <div className="thing-column">
                 <h3>Cancellation policy</h3>
-                <p>Free cancellation before 48 hours of check-in</p>
-                <button className="show-more">Show more</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="booking-sidebar">
-          <div className="booking-card">
-            <div className="booking-header">
-              <div className="price">R{place.price} <span>night</span></div>
-              <div className="rating">★ 4.95 · 128 reviews</div>
-            </div>
-            
-            <div className="booking-form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Check-in</label>
-                  <input 
-                    type="date" 
-                    value={checkIn}
-                    onChange={function(e) { setCheckIn(e.target.value); }}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Check-out</label>
-                  <input 
-                    type="date" 
-                    value={checkOut}
-                    onChange={function(e) { setCheckOut(e.target.value); }}
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label>Guests</label>
-                <select 
-                  value={guests}
-                  onChange={function(e) { setGuests(parseInt(e.target.value)); }}
-                >
-                  <option value={1}>1 guest</option>
-                  <option value={2}>2 guests</option>
-                  <option value={3}>3 guests</option>
-                  <option value={4}>4+ guests</option>
-                </select>
-              </div>
-              <button className="reserve-btn">Reserve</button>
-              <p className="no-charge">You won't be charged yet</p>
-            </div>
-
-            <div className="booking-total">
-              <div className="total-row">
-                <span>R{place.price} x {nights} nights</span>
-                <span>R{nightsTotal}</span>
-              </div>
-              {weeklyDiscount > 0 && (
-                <div className="total-row">
-                  <span>Weekly discount</span>
-                  <span>-R{weeklyDiscount}</span>
-                </div>
-              )}
-              <div className="total-row">
-                <span>Cleaning fee</span>
-                <span>R{cleaningFee}</span>
-              </div>
-              <div className="total-row">
-                <span>Service fee</span>
-                <span>R{serviceFee}</span>
-              </div>
-              <div className="total-row">
-                <span>Occupancy taxes</span>
-                <span>R{taxes}</span>
-              </div>
-              <div className="total-divider"></div>
-              <div className="total-row total">
-                <span>Total</span>
-                <span>R{grandTotal}</span>
+                <p>Free cancellation for 48 hours</p>
+                <p>Full refund up to 24 hours before check-in</p>
               </div>
             </div>
           </div>
