@@ -105,14 +105,15 @@
 
 .results-count {
   font-size: 16px;
-  color: #717171;
+  font-weight: 600;
+  color: #222;
   margin-bottom: 24px;
 }
 
 .places-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .no-results {

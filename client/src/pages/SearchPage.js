@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import API_URL, { ACCOMMODATIONS_URL } from '../config';
-import ListingCard from '../components/ListingCard';
+import SearchListingCard from '../components/SearchListingCard';
 import './SearchPage.css';
 
 function SearchPage() {
@@ -84,12 +84,12 @@ function SearchPage() {
     setFilteredPlaces(results);
   }, [searchTerm, priceRange, placeType, freeCancellation, wifi, kitchen, airConditioning, places]);
 
-  // build place cards using ListingCard component
+  // build place cards using SearchListingCard component
   var placeCards = [];
   for (var p = 0; p < filteredPlaces.length; p++) {
     var place = filteredPlaces[p];
     placeCards.push(
-      <ListingCard key={place._id} place={place} />
+      <SearchListingCard key={place._id} place={place} />
     );
   }
 
