@@ -70,16 +70,11 @@ function HomePage() {
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-image">
-          <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1600" alt="Modern house" />
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600" alt="Modern luxury house at dusk" />
         </div>
         <div className="hero-content">
-          <div className="hero-search">
-            <h1>Not sure where to go? Perfect.</h1>
-            <div className="search-bar-hero">
-              <input type="text" placeholder="Search destinations..." />
-              <button className="search-btn-hero">I'm flexible</button>
-            </div>
-          </div>
+          <h1>Not sure where to go? Perfect.</h1>
+          <button className="hero-btn">I'm flexible</button>
         </div>
       </div>
 
