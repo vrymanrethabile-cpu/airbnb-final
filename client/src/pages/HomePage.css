@@ -111,6 +111,30 @@
   background: #E31C5F;
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 400px;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+
+  .inspiration-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .experiences-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Inspiration Section */
 .inspiration-section {
   margin-bottom: 48px;

@@ -215,3 +215,10 @@
     right: -10px;
   }
 }
+
+@media (max-width: 480px) {
+  .nav-link:nth-child(1),
+  .nav-link:nth-child(2) {
+    display: none;
+  }
+}

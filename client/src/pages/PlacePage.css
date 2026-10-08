@@ -88,6 +88,42 @@
   height: fit-content;
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .gallery-main {
+    grid-row: span 1;
+    aspect-ratio: 16/9;
+  }
+
+  .gallery-small-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .gallery-small {
+    aspect-ratio: 1/1;
+  }
+
+  .place-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .place-main {
+    grid-column: 1;
+  }
+
+  .booking-sidebar {
+    grid-column: 1;
+    position: static;
+  }
+}
+
 .place-details h2 {
   font-size: 22px;
   font-weight: 600;
