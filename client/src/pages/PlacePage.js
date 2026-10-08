@@ -185,192 +185,70 @@ function PlacePage() {
                 {perkList}
               </div>
             </div>
+          </div>
+        </div>
 
-            <div className="booking-sidebar">
-              <div className="booking-card">
-                <div className="booking-header">
-                  <div className="booking-price">
-                    <span className="price">R{place.price}</span>
-                    <span className="per-night">night</span>
-                  </div>
-                  <div className="booking-rating">★ 4.95 · 128 reviews</div>
-                </div>
-                <div className="booking-dates">
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label>Check-in</label>
-                      <input type="date" value={checkIn} onChange={function(e) { setCheckIn(e.target.value); }} />
-                    </div>
-                    <div className="form-group">
-                      <label>Check-out</label>
-                      <input type="date" value={checkOut} onChange={function(e) { setCheckOut(e.target.value); }} />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label>Guests</label>
-                    <select value={guests} onChange={function(e) { setGuests(e.target.value); }}>
-                      <option value={1}>1 guest</option>
-                      <option value={2}>2 guests</option>
-                      <option value={3}>3 guests</option>
-                      <option value={4}>4+ guests</option>
-                    </select>
-                  </div>
-                </div>
-                <button className="reserve-btn">Reserve</button>
-                <p className="no-charge">You won't be charged yet</p>
+        <div className="booking-sidebar">
+          <div className="booking-card">
+            <div className="booking-header">
+              <div className="booking-price">
+                <span className="price">R{place.price}</span>
+                <span className="per-night">night</span>
               </div>
-
-              <div className="booking-total">
-                <div className="total-row">
-                  <span>R{place.price} x {nights} nights</span>
-                  <span>R{nightsTotal}</span>
+              <div className="booking-rating">★ 4.95 · 128 reviews</div>
+            </div>
+            <div className="booking-dates">
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Check-in</label>
+                  <input type="date" value={checkIn} onChange={function(e) { setCheckIn(e.target.value); }} />
                 </div>
-                {weeklyDiscount > 0 && (
+                <div className="form-group">
+                  <label>Check-out</label>
+                  <input type="date" value={checkOut} onChange={function(e) { setCheckOut(e.target.value); }} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Guests</label>
+                <select value={guests} onChange={function(e) { setGuests(e.target.value); }}>
+                  <option value={1}>1 guest</option>
+                  <option value={2}>2 guests</option>
+                  <option value={3}>3 guests</option>
+                  <option value={4}>4+ guests</option>
+                </select>
+              </div>
+            </div>
+            <button className="reserve-btn">Reserve</button>
+            <p className="no-charge">You won't be charged yet</p>
+
+            <div className="booking-total">
+              <div className="total-row">
+                    <span>R{place.price} x {nights} nights</span>
+                    <span>R{nightsTotal}</span>
+                  </div>
+                  {weeklyDiscount > 0 && (
+                    <div className="total-row">
+                      <span>Weekly discount</span>
+                      <span>-R{weeklyDiscount}</span>
+                    </div>
+                  )}
                   <div className="total-row">
-                    <span>Weekly discount</span>
-                    <span>-R{weeklyDiscount}</span>
+                    <span>Cleaning fee</span>
+                    <span>R{cleaningFee}</span>
                   </div>
-                )}
-                <div className="total-row">
-                  <span>Cleaning fee</span>
-                  <span>R{cleaningFee}</span>
+                  <div className="total-row">
+                    <span>Service fee</span>
+                    <span>R{serviceFee}</span>
+                  </div>
+                  <div className="total-row">
+                    <span>Taxes</span>
+                    <span>R{taxes}</span>
+                  </div>
+                  <div className="total-row total">
+                    <span>Total</span>
+                    <span>R{grandTotal}</span>
+                  </div>
                 </div>
-                <div className="total-row">
-                  <span>Service fee</span>
-                  <span>R{serviceFee}</span>
-                </div>
-                <div className="total-row">
-                  <span>Occupancy taxes</span>
-                  <span>R{taxes}</span>
-                </div>
-                <div className="total-divider"></div>
-                <div className="total-row total">
-                  <span>Total</span>
-                  <span>R{grandTotal}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Sleeping Arrangements */}
-          <div className="sleeping-section">
-            <h2>Where you'll sleep</h2>
-            <div className="sleeping-card">
-              <img src={place.photos && place.photos[0] ? place.photos[0] : 'https://via.placeholder.com/400x300'} alt="Bedroom" />
-              <h3>Bedroom 1</h3>
-              <p>{place.bedrooms || 2} queen bed</p>
-            </div>
-          </div>
-
-          {/* Amenities with Icons */}
-          <div className="amenities-section">
-            <h2>What this place offers</h2>
-            <div className="amenities-list">
-              {perkList}
-            </div>
-            <button className="show-all-amenities">Show all amenities</button>
-          </div>
-
-          {/* Date Selection */}
-          <div className="date-selection">
-            <h2>Select dates</h2>
-            <div className="calendar-placeholder">
-              <p>Select your check-in and check-out dates to see availability and pricing</p>
-              <div className="calendar-month">
-                <h3>October 2024</h3>
-                <div className="calendar-days">
-                  {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31].map(function(day) {
-                    return (
-                      <div key={day} className="calendar-day">{day}</div>
-                    );
-                  })}
-                </div>
-              </div>
-              <button className="clear-dates">Clear dates</button>
-            </div>
-          </div>
-
-          {/* Reviews Section */}
-          <div className="reviews-section">
-            <h2>Reviews</h2>
-            <div className="rating-categories">
-              <div className="rating-category">
-                <span>Cleanliness</span>
-                <span>5.0</span>
-              </div>
-              <div className="rating-category">
-                <span>Communication</span>
-                <span>5.0</span>
-              </div>
-              <div className="rating-category">
-                <span>Check-in</span>
-                <span>5.0</span>
-              </div>
-              <div className="rating-category">
-                <span>Accuracy</span>
-                <span>5.0</span>
-              </div>
-              <div className="rating-category">
-                <span>Location</span>
-                <span>5.0</span>
-              </div>
-              <div className="rating-category">
-                <span>Value</span>
-                <span>5.0</span>
-              </div>
-            </div>
-            <div className="reviews-list">
-              {reviewCards}
-            </div>
-            <button className="show-all-reviews">Show all reviews</button>
-          </div>
-
-          {/* Host Section */}
-          <div className="host-section">
-            <h2>Meet your host</h2>
-            <div className="host-info">
-              <div className="host-avatar">H</div>
-              <div className="host-details">
-                <p><strong>Hosted by {place.owner ? place.owner.name : 'Host'}</strong></p>
-                <p>Superhost · 5 years hosting</p>
-              </div>
-            </div>
-            <div className="host-description">
-              <p>I'm a passionate host who loves sharing beautiful spaces with travelers from around the world.</p>
-            </div>
-            <div className="host-response">
-              <p><strong>Response rate:</strong> 100%</p>
-              <p><strong>Response time:</strong> within an hour</p>
-            </div>
-            <button className="contact-host-btn">Contact host</button>
-          </div>
-
-          {/* Things to Know */}
-          <div className="things-to-know">
-            <h2>Things to know</h2>
-            <div className="things-grid">
-              <div className="thing-column">
-                <h3>House rules</h3>
-                <p>Check-in: 2:00 PM - 10:00 PM</p>
-                <p>Checkout before 11:00 AM</p>
-                <p>Self check-in with keypad</p>
-                <p>No smoking</p>
-                <p>No pets</p>
-                <p>No parties or events</p>
-              </div>
-              <div className="thing-column">
-                <h3>Safety & property</h3>
-                <p>Carbon monoxide alarm</p>
-                <p>Smoke alarm</p>
-                <p>First aid kit</p>
-                <p>Fire extinguisher</p>
-              </div>
-              <div className="thing-column">
-                <h3>Cancellation policy</h3>
-                <p>Free cancellation for 48 hours</p>
-                <p>Full refund up to 24 hours before check-in</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>

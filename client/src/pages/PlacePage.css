@@ -77,6 +77,17 @@
   gap: 80px;
 }
 
+.place-main {
+  grid-column: 1;
+}
+
+.booking-sidebar {
+  grid-column: 2;
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+}
+
 .place-details h2 {
   font-size: 22px;
   font-weight: 600;
