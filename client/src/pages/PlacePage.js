@@ -27,13 +27,23 @@ function PlacePage() {
     return <div className="loading">Loading...</div>;
   }
 
-  // build gallery images
-  var galleryImages = [];
+  // build gallery images - large left image + 4 small right images (2x2 grid)
+  var mainImage = null;
+  var smallImages = [];
+  
   if (place.photos && place.photos.length > 0) {
-    for (var i = 0; i < place.photos.length; i++) {
-      galleryImages.push(
-        <div key={i} className="gallery-item">
-          <img src={place.photos[i]} alt={place.title} />
+    // first image is the large main image
+    mainImage = (
+      <div key="main" className="gallery-main">
+        <img src={place.photos[0]} alt={place.title} />
+      </div>
+    );
+    
+    // next 4 images are the small images in 2x2 grid
+    for (var i = 1; i < Math.min(place.photos.length, 5); i++) {
+      smallImages.push(
+        <div key={i} className="gallery-small">
+          <img src={place.photos[i]} alt={place.title + ' photo ' + (i + 1)} />
         </div>
       );
     }
@@ -52,18 +62,6 @@ function PlacePage() {
     }
   }
 
-  // build gallery images with a loop instead of map
-  let galleryItems = [];
-  if (place.photos && place.photos.length > 1) {
-    for (let i = 1; i < place.photos.length && i < 5; i++) {
-      let photo = place.photos[i];
-      galleryItems.push(
-        <div key={i} className="gallery-item">
-          <img src={photo} alt={place.title + ' photo ' + (i + 1)} />
-        </div>
-      );
-    }
-  }
 
   // perks list with icons
   let perkList = [];
@@ -159,7 +157,10 @@ function PlacePage() {
           </div>
 
           <div className="gallery">
-            {galleryImages}
+            {mainImage}
+            <div className="gallery-small-grid">
+              {smallImages}
+            </div>
           </div>
 
           <div className="place-details-section">
