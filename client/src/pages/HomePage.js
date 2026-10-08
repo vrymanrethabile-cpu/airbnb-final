@@ -117,14 +117,18 @@ function HomePage() {
         <p>Find activities led by local hosts</p>
         <div className="experiences-grid">
           <div className="experience-card">
-            <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=400" alt="Things to do on your trip" />
-            <h3>Things to do on your trip</h3>
-            <p>Explore local activities</p>
+            <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=800" alt="Things to do on your trip" />
+            <div className="experience-overlay">
+              <h3>Things to do<br />on your trip</h3>
+              <button className="experience-btn">Explore</button>
+            </div>
           </div>
           <div className="experience-card">
-            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=400" alt="Things to do from home" />
-            <h3>Things to do from home</h3>
-            <p>Online experiences</p>
+            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800" alt="Things to do from home" />
+            <div className="experience-overlay">
+              <h3>Things to do<br />from home</h3>
+              <button className="experience-btn">Explore</button>
+            </div>
           </div>
         </div>
       </div>

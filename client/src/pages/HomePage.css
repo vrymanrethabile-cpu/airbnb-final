@@ -143,30 +143,66 @@
 .experiences-section h2 {
   font-size: 24px;
   font-weight: 700;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.experiences-section p {
+  font-size: 16px;
+  color: #717171;
   margin-bottom: 24px;
 }
 
 .experiences-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 
 .experience-card {
-  cursor: pointer;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 16/9;
 }
 
 .experience-card img {
   width: 100%;
-  height: 250px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 12px;
 }
 
-.experience-card h3 {
-  font-size: 18px;
+.experience-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: white;
+}
+
+.experience-overlay h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.experience-btn {
+  background: white;
+  color: #222;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.experience-btn:hover {
+  background: #f7f7f7;
 }
 
 /* Gift Cards Section */
