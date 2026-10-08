@@ -39,8 +39,9 @@ function Header() {
         </Link>
 
         <div className="search-bar">
-          <Link to="/search" className="search-btn">Anywhere</Link>
-          <button className="search-btn">Any week</button>
+          <button className="search-btn">Location</button>
+          <button className="search-btn">Check in</button>
+          <button className="search-btn">Check out</button>
           <button className="search-btn search-btn-add">Add guests</button>
           <Link to="/search" className="search-icon">
             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style={{display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentColor', strokeWidth: '4', overflow: 'visible'}}>

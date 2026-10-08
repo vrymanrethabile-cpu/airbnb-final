@@ -51,11 +51,11 @@
   border-right: 1px solid #e7e7e7;
   background: none;
   cursor: pointer;
+  border-radius: 20px;
 }
 
 .search-btn:hover {
   background: #ebebeb;
-  border-radius: 20px;
 }
 
 .search-btn-add {
