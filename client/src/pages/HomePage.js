@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import API_URL, { ACCOMMODATIONS_URL } from '../config';
 import ListingCard from '../components/ListingCard';
+import DestinationCard from '../components/DestinationCard';
 import './HomePage.css';
 
 // HomePage component - displays hero section, inspiration, experiences, and place listings
@@ -87,26 +88,31 @@ function HomePage() {
         <h2>Inspiration for your next trip</h2>
         <p>Discover popular destinations and unique stays</p>
         <div className="inspiration-grid">
-          <div className="inspiration-card">
-            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" alt="Cape Town" />
-            <h3>Cape Town</h3>
-            <p>Table Mountain views</p>
-          </div>
-          <div className="inspiration-card">
-            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400" alt="Durban" />
-            <h3>Durban</h3>
-            <p>Golden Mile Beach</p>
-          </div>
-          <div className="inspiration-card">
-            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400" alt="Kruger National Park" />
-            <h3>Kruger National Park</h3>
-            <p>Wildlife Safari</p>
-          </div>
-          <div className="inspiration-card">
-            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400" alt="Garden Route" />
-            <h3>Garden Route</h3>
-            <p>Scenic Coastal Drive</p>
-          </div>
+          <DestinationCard 
+            destination="Cape Town" 
+            image="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400"
+            subtitle="Table Mountain views"
+          />
+          <DestinationCard 
+            destination="Pretoria" 
+            image="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400"
+            subtitle="Jacaranda City"
+          />
+          <DestinationCard 
+            destination="Midrand" 
+            image="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400"
+            subtitle="Mall of Africa"
+          />
+          <DestinationCard 
+            destination="Bloemfontein" 
+            image="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400"
+            subtitle="City of Roses"
+          />
+          <DestinationCard 
+            destination="Durban" 
+            image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400"
+            subtitle="Golden Mile Beach"
+          />
         </div>
       </div>
 

@@ -123,42 +123,26 @@
 
 /* Inspiration Section */
 .inspiration-section {
-  margin-bottom: 60px;
+  margin-bottom: 48px;
 }
 
 .inspiration-section h2 {
   font-size: 24px;
   font-weight: 700;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.inspiration-section p {
+  font-size: 16px;
+  color: #717171;
   margin-bottom: 24px;
 }
 
 .inspiration-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 24px;
-}
-
-.inspiration-card {
-  cursor: pointer;
-}
-
-.inspiration-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 12px;
-}
-
-.inspiration-card h3 {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.inspiration-card p {
-  font-size: 14px;
-  color: #717171;
 }
 
 /* Experiences Section */
