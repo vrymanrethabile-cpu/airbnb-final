@@ -229,6 +229,63 @@ const samplePlaces = [
     price: 550,
     checkIn: '14:00',
     checkOut: '10:00'
+  },
+
+  // DURBAN LISTINGS
+  {
+    title: 'Beachfront Apartment',
+    address: 'Golden Mile, Durban',
+    photos: [
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800',
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800'
+    ],
+    description: 'Stunning beachfront apartment with panoramic ocean views. Steps from the Golden Mile beach. Modern kitchen, WiFi, and private balcony. Perfect for beach lovers.',
+    perks: ['Wifi', 'Kitchen', 'Air conditioning', 'Ocean view', 'Balcony', 'TV', 'Free parking'],
+    guests: 4,
+    bedrooms: 2,
+    beds: 2,
+    baths: 2,
+    type: 'Entire home',
+    price: 2200,
+    checkIn: '14:00',
+    checkOut: '10:00'
+  },
+  {
+    title: 'Family Home in Umhlanga',
+    address: 'Umhlanga, Durban',
+    photos: [
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800'
+    ],
+    description: 'Spacious family home in secure estate. Private pool, garden, and entertainment area. Walking distance to Umhlanga beach and Gateway Theatre of Shopping.',
+    perks: ['Wifi', 'Pool', 'Kitchen', 'Air conditioning', 'Free parking', 'Garden', 'BBQ', 'TV', 'Washer', 'Dryer'],
+    guests: 6,
+    bedrooms: 3,
+    beds: 4,
+    baths: 2,
+    type: 'Entire home',
+    price: 3200,
+    checkIn: '14:00',
+    checkOut: '11:00'
+  },
+  {
+    title: 'Cozy Studio in Morningside',
+    address: 'Morningside, Durban',
+    photos: [
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800',
+      'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800'
+    ],
+    description: 'Modern studio apartment in trendy Morningside. Close to restaurants, cafes, and Florida Road. Fully equipped kitchen, WiFi, and secure parking.',
+    perks: ['Wifi', 'Kitchen', 'Air conditioning', 'Free parking', 'TV', 'Workspace'],
+    guests: 2,
+    bedrooms: 1,
+    beds: 1,
+    baths: 1,
+    type: 'Entire home',
+    price: 1100,
+    checkIn: '14:00',
+    checkOut: '10:00'
   }
 ];
 
