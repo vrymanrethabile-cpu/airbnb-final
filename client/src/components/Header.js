@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 // Header component - displays logo, search bar, navigation, and user menu with dropdown
 function Header() {
+  let navigate = useNavigate();
   let [search, setSearch] = useState('');
+  let [location, setLocation] = useState('');
+  let [checkIn, setCheckIn] = useState('');
+  let [checkOut, setCheckOut] = useState('');
+  let [guests, setGuests] = useState(1);
   let [user, setUser] = useState(null);
   let [showDropdown, setShowDropdown] = useState(false);
+  let [activeSearchField, setActiveSearchField] = useState(null);
 
   // check if user is logged in on component mount
   useEffect(function() {
@@ -30,6 +36,22 @@ function Header() {
     setShowDropdown(!showDropdown);
   }
 
+  // handle search button click - activate input field
+  function handleSearchClick(field) {
+    setActiveSearchField(field);
+  }
+
+  // handle search - navigate to search page with parameters
+  function handleSearch() {
+    let params = new URLSearchParams();
+    if (location) params.append('location', location);
+    if (checkIn) params.append('checkIn', checkIn);
+    if (checkOut) params.append('checkOut', checkOut);
+    if (guests) params.append('guests', guests);
+    
+    navigate('/search?' + params.toString());
+  }
+
   return (
     <header className="header">
       <div className="header-container">
@@ -39,17 +61,79 @@ function Header() {
         </Link>
 
         <div className="search-bar">
-          <button className="search-btn">Location</button>
-          <button className="search-btn">Check in</button>
-          <button className="search-btn">Check out</button>
-          <button className="search-btn search-btn-add">Add guests</button>
-          <Link to="/search" className="search-icon">
+          <div className="search-field">
+            {activeSearchField === 'location' ? (
+              <input 
+                type="text" 
+                placeholder="Where are you going?" 
+                value={location}
+                onChange={function(e) { setLocation(e.target.value); }}
+                onBlur={function() { setActiveSearchField(null); }}
+                autoFocus
+              />
+            ) : (
+              <button className="search-btn" onClick={function() { handleSearchClick('location'); }}>
+                {location || 'Location'}
+              </button>
+            )}
+          </div>
+          <div className="search-field">
+            {activeSearchField === 'checkIn' ? (
+              <input 
+                type="date" 
+                value={checkIn}
+                onChange={function(e) { setCheckIn(e.target.value); }}
+                onBlur={function() { setActiveSearchField(null); }}
+                autoFocus
+              />
+            ) : (
+              <button className="search-btn" onClick={function() { handleSearchClick('checkIn'); }}>
+                {checkIn || 'Check in'}
+              </button>
+            )}
+          </div>
+          <div className="search-field">
+            {activeSearchField === 'checkOut' ? (
+              <input 
+                type="date" 
+                value={checkOut}
+                onChange={function(e) { setCheckOut(e.target.value); }}
+                onBlur={function() { setActiveSearchField(null); }}
+                autoFocus
+              />
+            ) : (
+              <button className="search-btn" onClick={function() { handleSearchClick('checkOut'); }}>
+                {checkOut || 'Check out'}
+              </button>
+            )}
+          </div>
+          <div className="search-field">
+            {activeSearchField === 'guests' ? (
+              <select 
+                value={guests}
+                onChange={function(e) { setGuests(e.target.value); }}
+                onBlur={function() { setActiveSearchField(null); }}
+                autoFocus
+              >
+                <option value={1}>1 guest</option>
+                <option value={2}>2 guests</option>
+                <option value={3}>3 guests</option>
+                <option value={4}>4 guests</option>
+                <option value={5}>5+ guests</option>
+              </select>
+            ) : (
+              <button className="search-btn search-btn-add" onClick={function() { handleSearchClick('guests'); }}>
+                {guests === 1 ? 'Add guests' : guests + ' guests'}
+              </button>
+            )}
+          </div>
+          <button className="search-icon" onClick={handleSearch}>
             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style={{display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentColor', strokeWidth: '4', overflow: 'visible'}}>
               <g fill="none">
                 <path d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9"></path>
               </g>
             </svg>
-          </Link>
+          </button>
         </div>
 
         <nav className="nav">

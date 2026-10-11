@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import API_URL, { ACCOMMODATIONS_URL } from '../config';
 import SearchListingCard from '../components/SearchListingCard';
 import './SearchPage.css';
 
 function SearchPage() {
+  let [searchParams, setSearchParams] = useSearchParams();
   let [places, setPlaces] = useState([]);
   let [filteredPlaces, setFilteredPlaces] = useState([]);
   let [searchTerm, setSearchTerm] = useState('');
@@ -18,63 +19,87 @@ function SearchPage() {
   let [kitchen, setKitchen] = useState(false);
   let [airConditioning, setAirConditioning] = useState(false);
 
+  // get URL parameters from header search
+  let locationParam = searchParams.get('location');
+  let checkInParam = searchParams.get('checkIn');
+  let checkOutParam = searchParams.get('checkOut');
+  let guestsParam = searchParams.get('guests');
+
+  // fetch all places on component mount
   useEffect(function() {
     axios.get(ACCOMMODATIONS_URL)
-      .then(function(response) {
-        var data = response.data;
-        if (!Array.isArray(data)) {
-          data = [];
-        }
-        setPlaces(data);
-        setFilteredPlaces(data);
+      .then(function(res) {
+        setPlaces(res.data);
       })
       .catch(function(err) {
-        console.log('error getting places', err);
-        setPlaces([]);
-        setFilteredPlaces([]);
+        console.log('error fetching places', err);
       });
   }, []);
 
-  // apply filters
+  // set search term from URL parameter
   useEffect(function() {
-    var results = [];
+    if (locationParam) {
+      setSearchTerm(locationParam);
+    }
+  }, [locationParam]);
+
+  // filter places based on search term and filters
+  useEffect(function() {
+    let results = [];
     for (var i = 0; i < places.length; i++) {
       var place = places[i];
       var include = true;
 
-      // search term filter
-      if (searchTerm && place.title && place.title.toLowerCase().indexOf(searchTerm.toLowerCase()) === -1) {
-        include = false;
-      }
-
-      // price filter
-      if (priceRange && place.price) {
-        if (priceRange === 'low' && place.price > 500) {
-          include = false;
-        } else if (priceRange === 'medium' && (place.price < 500 || place.price > 1500)) {
-          include = false;
-        } else if (priceRange === 'high' && place.price < 1500) {
+      // filter by search term
+      if (searchTerm) {
+        var searchLower = searchTerm.toLowerCase();
+        var titleLower = place.title ? place.title.toLowerCase() : '';
+        var addressLower = place.address ? place.address.toLowerCase() : '';
+        if (!titleLower.includes(searchLower) && !addressLower.includes(searchLower)) {
           include = false;
         }
       }
 
-      // place type filter
-      if (placeType && place.type && place.type !== placeType) {
-        include = false;
+      // filter by price range
+      if (priceRange) {
+        if (priceRange === 'low' && place.price > 1000) {
+          include = false;
+        }
+        if (priceRange === 'medium' && (place.price <= 1000 || place.price > 3000)) {
+          include = false;
+        }
+        if (priceRange === 'high' && place.price <= 3000) {
+          include = false;
+        }
       }
 
-      // amenities filters
-      if (freeCancellation && (!place.perks || place.perks.indexOf('Free cancellation') === -1)) {
-        include = false;
+      // filter by place type
+      if (placeType) {
+        if (place.type !== placeType) {
+          include = false;
+        }
       }
-      if (wifi && (!place.perks || place.perks.indexOf('Wifi') === -1)) {
-        include = false;
+
+      // filter by amenities
+      if (freeCancellation) {
+        if (!place.perks || !place.perks.includes('Free cancellation')) {
+          include = false;
+        }
       }
-      if (kitchen && (!place.perks || place.perks.indexOf('Kitchen') === -1)) {
-        include = false;
+      if (wifi) {
+        if (!place.perks || !place.perks.includes('Wifi')) {
+          include = false;
+        }
       }
-      if (airConditioning && (!place.perks || place.perks.indexOf('Air conditioning') === -1)) {
-        include = false;
+      if (kitchen) {
+        if (!place.perks || !place.perks.includes('Kitchen')) {
+          include = false;
+        }
+      }
+      if (airConditioning) {
+        if (!place.perks || !place.perks.includes('Air conditioning')) {
+          include = false;
+        }
       }
 
       if (include) {
