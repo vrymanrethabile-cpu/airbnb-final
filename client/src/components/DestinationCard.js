@@ -6,7 +6,7 @@ import './DestinationCard.css';
 // Layout: image on top, pink/red bottom strip with destination name
 function DestinationCard({ destination, image, subtitle }) {
   return (
-    <Link to="/search" className="destination-card">
+    <Link to={'/search?location=' + destination} className="destination-card">
       <div className="destination-image">
         <img src={image} alt={destination} />
       </div>

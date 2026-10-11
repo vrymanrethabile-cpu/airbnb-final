@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import API_URL, { ACCOMMODATIONS_URL } from '../config';
 import ListingCard from '../components/ListingCard';
@@ -8,6 +8,7 @@ import './HomePage.css';
 
 // HomePage component - displays hero section, inspiration, experiences, and place listings
 function HomePage() {
+  let navigate = useNavigate();
   // state for storing all places from the API
   let [places, setPlaces] = useState([]);
 
@@ -74,7 +75,7 @@ function HomePage() {
         </div>
         <div className="hero-content">
           <h1>Not sure where to go? Perfect.</h1>
-          <button className="hero-btn">I'm flexible</button>
+          <button className="hero-btn" onClick={function() { navigate('/search'); }}>I'm flexible</button>
         </div>
       </div>
 
