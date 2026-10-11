@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import API_URL, { ACCOMMODATIONS_URL } from '../config';
 import './PlacePage.css';
 
 function PlacePage() {
   let params = useParams();
+  let navigate = useNavigate();
   let id = params.id;
 
   let [place, setPlace] = useState(null);
   let [checkIn, setCheckIn] = useState('');
   let [checkOut, setCheckOut] = useState('');
   let [guests, setGuests] = useState(1);
+  let [showAllPhotos, setShowAllPhotos] = useState(false);
+  let [showFullDescription, setShowFullDescription] = useState(false);
+  let [showAllAmenities, setShowAllAmenities] = useState(false);
+  let [bookingError, setBookingError] = useState('');
+  let [bookingLoading, setBookingLoading] = useState(false);
 
   useEffect(function() {
     axios.get(ACCOMMODATIONS_URL + '/' + id)
@@ -30,6 +36,7 @@ function PlacePage() {
   // build gallery images - large left image + 4 small right images (2x2 grid)
   var mainImage = null;
   var smallImages = [];
+  var allImages = [];
   
   if (place.photos && place.photos.length > 0) {
     // first image is the large main image
@@ -46,6 +53,61 @@ function PlacePage() {
           <img src={place.photos[i]} alt={place.title + ' photo ' + (i + 1)} />
         </div>
       );
+    }
+
+    // build all images for show all photos view
+    for (var j = 0; j < place.photos.length; j++) {
+      allImages.push(
+        <div key={j} className="gallery-all-item">
+          <img src={place.photos[j]} alt={place.title + ' photo ' + (j + 1)} />
+        </div>
+      );
+    }
+  }
+
+  // handle reserve button click
+  async function handleReserve() {
+    setBookingError('');
+    
+    // validate dates
+    if (!checkIn || !checkOut) {
+      setBookingError('Please select check-in and check-out dates');
+      return;
+    }
+    
+    if (new Date(checkIn) >= new Date(checkOut)) {
+      setBookingError('Check-out date must be after check-in date');
+      return;
+    }
+
+    // check if user is logged in
+    let token = localStorage.getItem('token');
+    if (!token) {
+      setBookingError('Please log in to make a reservation');
+      navigate('/login');
+      return;
+    }
+
+    setBookingLoading(true);
+
+    try {
+      let response = await axios.post(API_URL + '/bookings', {
+        place: id,
+        checkIn: checkIn,
+        checkOut: checkOut,
+        numOfGuests: guests,
+        price: place.price * nights
+      }, {
+        headers: { Authorization: 'Bearer ' + token }
+      });
+
+      setBookingLoading(false);
+      alert('Reservation successful!');
+      navigate('/account/bookings');
+    } catch (err) {
+      setBookingLoading(false);
+      console.log('booking error', err);
+      setBookingError('Failed to make reservation. Please try again.');
     }
   }
 
@@ -157,10 +219,26 @@ function PlacePage() {
           </div>
 
           <div className="gallery">
-            {mainImage}
-            <div className="gallery-small-grid">
-              {smallImages}
-            </div>
+            {showAllPhotos ? (
+              <div className="gallery-all">
+                {allImages}
+                <button className="close-gallery-btn" onClick={function() { setShowAllPhotos(false); }}>
+                  Close
+                </button>
+              </div>
+            ) : (
+              <>
+                {mainImage}
+                <div className="gallery-small-grid">
+                  {smallImages}
+                </div>
+                {place.photos && place.photos.length > 5 && (
+                  <button className="show-all-photos-btn" onClick={function() { setShowAllPhotos(true); }}>
+                    Show all photos
+                  </button>
+                )}
+              </>
+            )}
           </div>
 
           <div className="place-details-section">
@@ -177,12 +255,26 @@ function PlacePage() {
 
               <div className="description">
                 <h2>About this space</h2>
-                <p>{place.description}</p>
+                <p className={showFullDescription ? '' : 'description-truncated'}>
+                  {place.description}
+                </p>
+                {place.description && place.description.length > 200 && (
+                  <button className="show-more-btn" onClick={function() { setShowFullDescription(!showFullDescription); }}>
+                    {showFullDescription ? 'Show less' : 'Show more'}
+                  </button>
+                )}
               </div>
 
               <div className="amenities">
                 <h2>What this place offers</h2>
-                {perkList}
+                <div className={showAllAmenities ? 'amenities-list-all' : 'amenities-list'}>
+                  {showAllAmenities ? perkList : perkList.slice(0, 6)}
+                </div>
+                {place.perks && place.perks.length > 6 && (
+                  <button className="show-all-amenities-btn" onClick={function() { setShowAllAmenities(!showAllAmenities); }}>
+                    {showAllAmenities ? 'Show less' : 'Show all ' + place.perks.length + ' amenities'}
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -218,7 +310,14 @@ function PlacePage() {
                 </select>
               </div>
             </div>
-            <button className="reserve-btn">Reserve</button>
+            {bookingError && (
+              <div className="booking-error">
+                {bookingError}
+              </div>
+            )}
+            <button className="reserve-btn" onClick={handleReserve} disabled={bookingLoading}>
+              {bookingLoading ? 'Reserving...' : 'Reserve'}
+            </button>
             <p className="no-charge">You won't be charged yet</p>
 
             <div className="booking-total">
