@@ -22,6 +22,23 @@ function BookingsPage() {
     }
   }, []);
 
+  async function handleDeleteBooking(bookingId) {
+    if (!confirm('Are you sure you want to cancel this reservation?')) {
+      return;
+    }
+
+    try {
+      var token = localStorage.getItem('token');
+      await axios.delete(API_URL + '/bookings/' + bookingId, {
+        headers: { Authorization: 'Bearer ' + token }
+      });
+      setBookings(bookings.filter(function(b) { return b._id !== bookingId; }));
+    } catch (err) {
+      console.log('error deleting booking', err);
+      alert('Failed to cancel reservation');
+    }
+  }
+
   // build booking cards with a for loop
   let bookingCards = [];
   for (let i = 0; i < bookings.length; i++) {
@@ -47,20 +64,28 @@ function BookingsPage() {
     }
 
     bookingCards.push(
-      <Link to={'/account/bookings/' + booking._id} key={booking._id} className="booking-card">
-        <div className="booking-image">
-          {imagePart}
-        </div>
-        <div className="booking-info">
-          <h3>{placeTitle}</h3>
-          <p className="booking-dates">
-            {checkInDate} - {checkOutDate}
-          </p>
-          <p className="booking-guests">{booking.numOfGuests} guests</p>
-          <p className="booking-price">R{booking.price} total</p>
-          <p className="booking-status">{booking.status}</p>
-        </div>
-      </Link>
+      <div key={booking._id} className="booking-card">
+        <Link to={'/account/bookings/' + booking._id} className="booking-card-link">
+          <div className="booking-image">
+            {imagePart}
+          </div>
+          <div className="booking-info">
+            <h3>{placeTitle}</h3>
+            <p className="booking-dates">
+              {checkInDate} - {checkOutDate}
+            </p>
+            <p className="booking-guests">{booking.numOfGuests} guests</p>
+            <p className="booking-price">R{booking.price} total</p>
+            <p className="booking-status">{booking.status}</p>
+          </div>
+        </Link>
+        <button 
+          className="delete-booking-btn"
+          onClick={function() { handleDeleteBooking(booking._id); }}
+        >
+          Cancel reservation
+        </button>
+      </div>
     );
   }
 

@@ -32,18 +32,41 @@
 
 .booking-card {
   display: flex;
-  gap: 16px;
-  padding: 24px;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
   border: 1px solid #e7e7e7;
   border-radius: 12px;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
+  margin-bottom: 20px;
   transition: box-shadow 0.2s;
 }
 
 .booking-card:hover {
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.booking-card-link {
+  display: flex;
+  gap: 20px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.delete-booking-btn {
+  background: #fff;
+  color: #222;
+  border: 1px solid #222;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+
+.delete-booking-btn:hover {
+  background: #f7f7f7;
 }
 
 .booking-image {
