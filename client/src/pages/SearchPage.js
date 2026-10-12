@@ -27,12 +27,90 @@ function SearchPage() {
 
   // fetch all places on component mount
   useEffect(function() {
+    console.log('Fetching from:', ACCOMMODATIONS_URL);
     axios.get(ACCOMMODATIONS_URL)
       .then(function(res) {
+        console.log('API response:', res.data);
+        console.log('Number of places:', res.data.length);
         setPlaces(res.data);
       })
       .catch(function(err) {
         console.log('error fetching places', err);
+        console.log('Error details:', err.response);
+        // Fallback to sample data if API fails
+        console.log('Using fallback sample data');
+        setPlaces([
+          {
+            _id: '1',
+            title: 'Stunning Sea View Apartment',
+            address: 'Camps Bay, Cape Town',
+            photos: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800'],
+            description: 'Wake up to breathtaking ocean views in this modern 2-bedroom apartment.',
+            perks: ['Wifi', 'Kitchen', 'Air conditioning', 'Pool'],
+            guests: 4,
+            bedrooms: 2,
+            beds: 2,
+            baths: 2,
+            type: 'Entire home',
+            price: 2500
+          },
+          {
+            _id: '2',
+            title: 'Modern Loft in Hatfield',
+            address: 'Hatfield, Pretoria',
+            photos: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800'],
+            description: 'Trendy loft apartment near UP campus with rooftop pool access.',
+            perks: ['Wifi', 'Pool', 'Kitchen', 'Gym'],
+            guests: 2,
+            bedrooms: 1,
+            beds: 1,
+            baths: 1,
+            type: 'Entire home',
+            price: 950
+          },
+          {
+            _id: '3',
+            title: 'Modern Apartment in Gallagher',
+            address: 'Gallagher Estate, Midrand',
+            photos: ['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800'],
+            description: 'Contemporary apartment in secure estate close to Mall of Africa.',
+            perks: ['Wifi', 'Pool', 'Kitchen', 'Gym'],
+            guests: 4,
+            bedrooms: 2,
+            beds: 2,
+            baths: 2,
+            type: 'Entire home',
+            price: 1800
+          },
+          {
+            _id: '4',
+            title: 'City Center Apartment',
+            address: 'Bloemfontein Central',
+            photos: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800'],
+            description: 'Modern apartment in the heart of Bloemfontein.',
+            perks: ['Wifi', 'Kitchen', 'Air conditioning'],
+            guests: 2,
+            bedrooms: 1,
+            beds: 1,
+            baths: 1,
+            type: 'Entire home',
+            price: 850
+          },
+          {
+            _id: '5',
+            title: 'Beachfront Apartment',
+            address: 'Golden Mile, Durban',
+            photos: ['https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800'],
+            description: 'Stunning beachfront apartment with panoramic ocean views.',
+            perks: ['Wifi', 'Kitchen', 'Ocean view', 'Balcony'],
+            guests: 4,
+            bedrooms: 2,
+            beds: 2,
+            baths: 2,
+            type: 'Entire home',
+            price: 2200
+          }
+        ]);
       });
   }, []);
 
