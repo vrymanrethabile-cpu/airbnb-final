@@ -276,6 +276,52 @@ function PlacePage() {
                   </button>
                 )}
               </div>
+
+              <div className="sleeping-arrangements">
+                <h2>Sleeping arrangements</h2>
+                <div className="sleeping-item">
+                  <span className="sleeping-icon">🛏️</span>
+                  <div>
+                    <strong>Bedroom {place.bedrooms || 2}</strong>
+                    <p>{place.beds || 3} {place.beds === 1 ? 'bed' : 'beds'}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="date-selection-info">
+                <h2>Select dates</h2>
+                <p>Choose your check-in and check-out dates to see availability and pricing.</p>
+              </div>
+
+              <div className="reviews-section">
+                <h2>Reviews</h2>
+                <div className="reviews-grid">
+                  {reviewCards}
+                </div>
+              </div>
+
+              <div className="things-to-know">
+                <h2>Things to know</h2>
+                <div className="things-to-know-grid">
+                  <div className="things-to-know-item">
+                    <h3>House rules</h3>
+                    <p>Check-in: {place.checkIn || '14:00'}</p>
+                    <p>Check-out: {place.checkOut || '10:00'}</p>
+                    <p>Self check-in available</p>
+                  </div>
+                  <div className="things-to-know-item">
+                    <h3>Safety & property</h3>
+                    <p>Smoke alarm</p>
+                    <p>Carbon monoxide alarm</p>
+                    <p>Fire extinguisher</p>
+                  </div>
+                  <div className="things-to-know-item">
+                    <h3>Cancellation policy</h3>
+                    <p>Free cancellation for 48 hours after booking</p>
+                    <p>Cancel before check-in for a partial refund</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

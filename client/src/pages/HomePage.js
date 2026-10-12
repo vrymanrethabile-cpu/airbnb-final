@@ -136,9 +136,16 @@ function HomePage() {
 
       {/* Gift Cards Section */}
       <div className="gift-cards-section">
-        <h2>Shop Airbnb gift cards</h2>
-        <p>Give the gift of travel with Airbnb gift cards</p>
-        <button className="shop-btn">Shop now</button>
+        <div className="gift-cards-content">
+          <div className="gift-cards-text">
+            <h2>Shop Airbnb gift cards</h2>
+            <p>Give the gift of travel with Airbnb gift cards</p>
+            <button className="shop-btn">Shop now</button>
+          </div>
+          <div className="gift-cards-image">
+            <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=800" alt="Airbnb gift cards" />
+          </div>
+        </div>
       </div>
 
       {/* Hosting Promo Section */}
@@ -151,11 +158,33 @@ function HomePage() {
       {/* Future Getaways Section */}
       <div className="getaways-section">
         <h2>Inspiration for future getaways</h2>
+        <div className="getaways-tabs">
+          <button className="tab-btn active">Popular</button>
+          <button className="tab-btn">Arts</button>
+          <button className="tab-btn">Outdoors</button>
+          <button className="tab-btn">Mountains</button>
+          <button className="tab-btn">Beach</button>
+          <button className="tab-btn">Unique stays</button>
+          <button className="tab-btn">Categories</button>
+          <button className="tab-btn">Amazing views</button>
+        </div>
         <div className="getaways-grid">
-          <Link to="/search" className="getaway-link">Cape Town</Link>
-          <Link to="/search" className="getaway-link">Durban</Link>
-          <Link to="/search" className="getaway-link">Garden Route</Link>
-          <Link to="/search" className="getaway-link">Kruger National Park</Link>
+          <Link to="/search?location=Cape Town" className="getaway-card">
+            <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e27?w=400" alt="Cape Town" />
+            <span>Cape Town</span>
+          </Link>
+          <Link to="/search?location=Durban" className="getaway-card">
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400" alt="Durban" />
+            <span>Durban</span>
+          </Link>
+          <Link to="/search?location=Garden Route" className="getaway-card">
+            <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=400" alt="Garden Route" />
+            <span>Garden Route</span>
+          </Link>
+          <Link to="/search?location=Kruger National Park" className="getaway-card">
+            <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400" alt="Kruger National Park" />
+            <span>Kruger National Park</span>
+          </Link>
         </div>
       </div>
 
