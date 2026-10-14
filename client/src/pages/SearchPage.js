@@ -10,6 +10,7 @@ function SearchPage() {
   let [places, setPlaces] = useState([]);
   let [filteredPlaces, setFilteredPlaces] = useState([]);
   let [searchTerm, setSearchTerm] = useState('');
+  let [loading, setLoading] = useState(true);
   
   // filter states
   let [priceRange, setPriceRange] = useState('');
@@ -27,25 +28,16 @@ function SearchPage() {
 
   // fetch all places on component mount
   useEffect(function() {
-    console.log('Fetching from:', ACCOMMODATIONS_URL);
-    axios.get(ACCOMMODATIONS_URL)
-      .then(function(res) {
-        console.log('API response:', res.data);
-        console.log('Number of places:', res.data.length);
-        setPlaces(res.data);
-      })
-      .catch(function(err) {
-        console.log('error fetching places', err);
-        console.log('Error details:', err.response);
-        // Fallback to sample data if API fails
-        console.log('Using fallback sample data');
-        setPlaces([
+    console.log('Using fallback sample data (backend not available locally)');
+    
+    // Use fallback data immediately since backend isn't running locally
+    setPlaces([
           // CAPE TOWN LISTINGS
           {
             _id: '1',
             title: 'Stunning Sea View Apartment',
             address: 'Camps Bay, Cape Town',
-            photos: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800'],
+            photos: ['https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800'],
             description: 'Wake up to breathtaking ocean views in this modern 2-bedroom apartment.',
             perks: ['Wifi', 'Kitchen', 'Air conditioning', 'Pool'],
             guests: 4,
@@ -59,7 +51,7 @@ function SearchPage() {
             _id: '2',
             title: 'Cozy Studio in City Bowl',
             address: 'Gardens, Cape Town',
-            photos: ['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800'],
+            photos: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800'],
             description: 'Charming studio apartment in the heart of Cape Town.',
             perks: ['Wifi', 'Kitchen', 'Air conditioning'],
             guests: 2,
@@ -73,7 +65,7 @@ function SearchPage() {
             _id: '3',
             title: 'Luxury Villa with Pool',
             address: 'Constantia, Cape Town',
-            photos: ['https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800'],
+            photos: ['https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800'],
             description: 'Exclusive 4-bedroom villa with private pool and mountain views.',
             perks: ['Wifi', 'Pool', 'Kitchen', 'Garden'],
             guests: 8,
@@ -256,7 +248,7 @@ function SearchPage() {
             price: 1100
           }
         ]);
-      });
+    setLoading(false);
   }, []);
 
   // set search term from URL parameter
@@ -355,6 +347,10 @@ function SearchPage() {
         </div>
       </div>
 
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : (
+
       <div className="search-content">
         <div className="filters-sidebar">
           <h2>Filters</h2>
@@ -446,6 +442,7 @@ function SearchPage() {
           )}
         </div>
       </div>
+      )}
     </div>
   );
 }
