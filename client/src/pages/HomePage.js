@@ -86,27 +86,27 @@ function HomePage() {
         <div className="inspiration-grid">
           <DestinationCard 
             destination="Cape Town" 
-            image="https://images.unsplash.com/photo-1580060839134-75a5edca2e27?w=400"
+            image="https://images.unsplash.com/photo-1580060839134-75a5edca2e27?w=600"
             subtitle="Table Mountain views"
           />
           <DestinationCard 
             destination="Pretoria" 
-            image="https://images.unsplash.com/photo-1577493340884-3c9b5b3e0663?w=400"
+            image="https://images.unsplash.com/photo-1577493340884-3c9b5b3e0663?w=600"
             subtitle="Jacaranda City"
           />
           <DestinationCard 
             destination="Midrand" 
-            image="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400"
+            image="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600"
             subtitle="Mall of Africa"
           />
           <DestinationCard 
             destination="Bloemfontein" 
-            image="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400"
+            image="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600"
             subtitle="City of Roses"
           />
           <DestinationCard 
             destination="Durban" 
-            image="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400"
+            image="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600"
             subtitle="Golden Mile Beach"
           />
         </div>
@@ -114,7 +114,7 @@ function HomePage() {
 
       {/* Experiences Section */}
       <div className="experiences-section">
-        <h2>Discover Airbnb Experiences</h2>
+        <h2>Discover Airbnb</h2>
         <p>Find activities led by local hosts</p>
         <div className="experiences-grid">
           <div className="experience-card">
@@ -150,7 +150,7 @@ function HomePage() {
 
       {/* Hosting Promo Section */}
       <div className="hosting-promo">
-        <h2>Become a Host</h2>
+        <h2>Become a host too</h2>
         <p>Learn how to become a host and earn money sharing your space</p>
         <Link to="/account/places/create" className="learn-more-btn">Get started</Link>
       </div>
