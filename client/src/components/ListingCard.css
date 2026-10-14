@@ -8,7 +8,7 @@
 .listing-card-image {
   position: relative;
   width: 100%;
-  aspect-ratio: 20/19;
+  height: 250px;
   border-radius: 12px;
   overflow: hidden;
   background: #f7f7f7;
@@ -112,7 +112,7 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .listing-card-image {
-    aspect-ratio: 1/1;
+    height: 200px;
   }
 
   .listing-card-location,
