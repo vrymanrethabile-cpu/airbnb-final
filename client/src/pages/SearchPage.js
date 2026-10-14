@@ -28,10 +28,11 @@ function SearchPage() {
 
   // fetch all places on component mount
   useEffect(function() {
+    console.log('Loading places...');
     console.log('Using fallback sample data (backend not available locally)');
     
     // Use fallback data immediately since backend isn't running locally
-    setPlaces([
+    const fallbackData = [
           // CAPE TOWN LISTINGS
           {
             _id: '1',
@@ -247,19 +248,25 @@ function SearchPage() {
             type: 'Entire home',
             price: 1100
           }
-        ]);
+        ];
+    
+    setPlaces(fallbackData);
     setLoading(false);
+    console.log('Places loaded:', fallbackData.length);
   }, []);
 
   // set search term from URL parameter
   useEffect(function() {
+    console.log('Location param from URL:', locationParam);
     if (locationParam) {
       setSearchTerm(locationParam);
+      console.log('Search term set to:', locationParam);
     }
   }, [locationParam]);
 
   // filter places based on search term and filters
   useEffect(function() {
+    console.log('Filtering places. Search term:', searchTerm, 'Total places:', places.length);
     let results = [];
     for (var i = 0; i < places.length; i++) {
       var place = places[i];
@@ -321,6 +328,8 @@ function SearchPage() {
         results.push(place);
       }
     }
+    
+    console.log('Filtered results:', results.length);
     setFilteredPlaces(results);
   }, [searchTerm, priceRange, placeType, freeCancellation, wifi, kitchen, airConditioning, places]);
 
