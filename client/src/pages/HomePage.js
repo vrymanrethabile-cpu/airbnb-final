@@ -170,19 +170,19 @@ function HomePage() {
         </div>
         <div className="getaways-grid">
           <Link to="/search?location=Cape Town" className="getaway-card">
-            <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e27?w=400" alt="Cape Town" />
+            <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e27?w=600" alt="Cape Town" />
             <span>Cape Town</span>
           </Link>
           <Link to="/search?location=Durban" className="getaway-card">
-            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400" alt="Durban" />
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600" alt="Durban" />
             <span>Durban</span>
           </Link>
           <Link to="/search?location=Garden Route" className="getaway-card">
-            <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=400" alt="Garden Route" />
+            <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600" alt="Garden Route" />
             <span>Garden Route</span>
           </Link>
           <Link to="/search?location=Kruger National Park" className="getaway-card">
-            <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400" alt="Kruger National Park" />
+            <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600" alt="Kruger National Park" />
             <span>Kruger National Park</span>
           </Link>
         </div>
