@@ -148,28 +148,28 @@ function HomePage() {
         <div className="inspiration-grid">
           <DestinationCard 
             destination="Cape Town" 
-            image="https://images.unsplash.com/photo-1580060839134-75a5edca2e27?w=600"
-            subtitle="Table Mountain views"
+            image="https://www.mynewsroom.co.za/wp-content/uploads/2024/06/Table-Mountain-Cape-Town.jpg"
+            subtitle=""
           />
           <DestinationCard 
             destination="Pretoria" 
-            image="https://images.unsplash.com/photo-1577493340884-3c9b5b3e0663?w=600"
-            subtitle="Jacaranda City"
+            image="https://theleader.info/wp-content/uploads/2020/06/Jacarandas-walk-in-bloom..jpg"
+            subtitle=""
           />
           <DestinationCard 
             destination="Midrand" 
-            image="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600"
-            subtitle="Mall of Africa"
+            image="https://www.attacq.co.za/wp-content/uploads/2020/09/Mall-of-Africa-11.jpg"
+            subtitle=""
           />
           <DestinationCard 
             destination="Bloemfontein" 
-            image="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600"
-            subtitle="City of Roses"
+            image="https://media.istockphoto.com/id/2187467579/photo/the-fourth-raadsaal-building-in-bloemfontein.jpg?s=612x612&w=0&k=20&c=rIewX4WXcETDY5v4JY9F6iacJ6wbeInRjPXj6RRKj_M="
+            subtitle=""
           />
           <DestinationCard 
             destination="Durban" 
-            image="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600"
-            subtitle="Golden Mile Beach"
+            image="https://www.south-african-hotels.com/media/durban(1).jpg"
+            subtitle=""
           />
         </div>
       </div>
@@ -180,14 +180,14 @@ function HomePage() {
         <p>Find activities led by local hosts</p>
         <div className="experiences-grid">
           <div className="experience-card">
-            <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=800" alt="Things to do on your trip" />
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800" alt="Things to do on your trip" />
             <div className="experience-overlay">
               <h3>Things to do<br />on your trip</h3>
               <button className="experience-btn">Explore</button>
             </div>
           </div>
           <div className="experience-card">
-            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800" alt="Things to do from home" />
+            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800" alt="Things to do from home" />
             <div className="experience-overlay">
               <h3>Things to do<br />from home</h3>
               <button className="experience-btn">Explore</button>
@@ -205,16 +205,23 @@ function HomePage() {
             <button className="shop-btn">Shop now</button>
           </div>
           <div className="gift-cards-image">
-            <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=800" alt="Airbnb gift cards" />
+            <img src="https://a0.muscache.com/im/pictures/1cf5a439-d6df-4ba3-b1be-27eeb68707b4.jpg" alt="Airbnb gift cards" />
           </div>
         </div>
       </div>
 
       {/* Hosting Promo Section */}
       <div className="hosting-promo">
-        <h2>Become a host too</h2>
-        <p>Learn how to become a host and earn money sharing your space</p>
-        <Link to="/account/places/create" className="learn-more-btn">Get started</Link>
+        <div className="hosting-content">
+          <div className="hosting-text">
+            <h2>Become a host too</h2>
+            <p>Learn how to become a host and earn money sharing your space</p>
+            <Link to="/account/places/create" className="learn-more-btn">Get started</Link>
+          </div>
+          <div className="hosting-image">
+            <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?w=800" alt="Become a host" />
+          </div>
+        </div>
       </div>
 
       {/* Future Getaways Section */}
@@ -232,19 +239,19 @@ function HomePage() {
         </div>
         <div className="getaways-grid">
           <Link to="/search?location=Cape Town" className="getaway-card">
-            <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e27?w=600" alt="Cape Town" />
+            <img src="https://www.mynewsroom.co.za/wp-content/uploads/2024/06/Table-Mountain-Cape-Town.jpg" alt="Cape Town" />
             <span>Cape Town</span>
           </Link>
           <Link to="/search?location=Durban" className="getaway-card">
-            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600" alt="Durban" />
+            <img src="https://www.south-african-hotels.com/media/durban(1).jpg" alt="Durban" />
             <span>Durban</span>
           </Link>
           <Link to="/search?location=Garden Route" className="getaway-card">
-            <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600" alt="Garden Route" />
+            <img src="https://africageographic.com/wp-content/uploads/2021/10/Garden-Route-Cover-1568x1045.jpg" alt="Garden Route" />
             <span>Garden Route</span>
           </Link>
           <Link to="/search?location=Kruger National Park" className="getaway-card">
-            <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600" alt="Kruger National Park" />
+            <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=900&auto=format&fit=crop&q=80" alt="Kruger National Park" />
             <span>Kruger National Park</span>
           </Link>
         </div>
