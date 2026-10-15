@@ -247,6 +247,34 @@ function SearchPage() {
               baths: 1,
               type: 'Entire home',
               price: 1100
+            },
+            {
+              _id: '16',
+              title: 'Ocean View House on the Garden Route',
+              address: 'Garden Route, South Africa',
+              photos: ['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800'],
+              description: 'Ocean-facing house with a relaxed coastal feel and beautiful garden views.',
+              perks: ['Wifi', 'Kitchen', 'Air conditioning', 'Garden', 'Pool'],
+              guests: 4,
+              bedrooms: 2,
+              beds: 2,
+              baths: 2,
+              type: 'Entire home',
+              price: 2400
+            },
+            {
+              _id: '17',
+              title: 'Safari Villa near Kruger National Park',
+              address: 'Kruger National Park, South Africa',
+              photos: ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800'],
+              description: 'Luxury safari villa with outdoor seating, wildlife views, and a private relaxing atmosphere.',
+              perks: ['Wifi', 'Kitchen', 'Pool', 'Air conditioning', 'Garden'],
+              guests: 5,
+              bedrooms: 3,
+              beds: 3,
+              baths: 2,
+              type: 'Entire home',
+              price: 4400
             }
           ];
       
