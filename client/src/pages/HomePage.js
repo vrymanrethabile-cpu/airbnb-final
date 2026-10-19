@@ -6,15 +6,22 @@ import ListingCard from '../components/ListingCard';
 import DestinationCard from '../components/DestinationCard';
 import './HomePage.css';
 
-// HomePage component - displays hero section, inspiration, experiences, and place listings
+// TODO: Maybe add a loading state for when places are loading
+// TODO: Add error handling if the API fails
+// TODO: The dedupeById function might not be needed anymore since we're using fallback data
+
+// HomePage component - this is the main page that shows all the sections
 function HomePage() {
+  // useNavigate lets us navigate to other pages
   let navigate = useNavigate();
-  // state for storing all places from the API
+  
+  // State to store all the places we get from the API
   let [places, setPlaces] = useState([]);
 
-  // remove duplicates - learned this from stackoverflow
+  // This function removes duplicate places based on their ID
+  // I learned this from StackOverflow when I was having issues with duplicates
   function dedupeById(arr) {
-    var seen = {};
+    var seen = {}; // Keep track of IDs we've already seen
     var result = [];
     if (!arr) {
       return result;
@@ -30,10 +37,10 @@ function HomePage() {
         }
       }
       if (!key) {
-        continue;
+        continue; // Skip if no ID found
       }
       if (seen[key]) {
-        continue;
+        continue; // Skip if we've already seen this ID
       }
       seen[key] = true;
       result.push(item);
@@ -41,9 +48,13 @@ function HomePage() {
     return result;
   }
 
-  // fetch all places from API when component mounts
+  // This useEffect runs when the component first mounts
+  // It fetches all the places from the API
   useEffect(function() {
-    // Use fallback data immediately since backend is not running locally
+    console.log('HomePage mounted, loading places...');
+    
+    // Using fallback data because the backend server isn't running locally
+    // TODO: Change this back to axios.get when backend is deployed
     var fallbackData = [
       {
         _id: '1',
@@ -116,10 +127,14 @@ function HomePage() {
         price: 2800
       }
     ];
+    
+    // Set the places state with our fallback data
     setPlaces(fallbackData);
+    console.log('Loaded', fallbackData.length, 'places');
   }, []);
 
-  // build place cards using ListingCard component
+  // Build the place cards that will be displayed in the "Places to stay" section
+  // We loop through all the places and create a ListingCard for each one
   var placeCards = [];
   for (var p = 0; p < places.length; p++) {
     var place = places[p];
@@ -127,6 +142,8 @@ function HomePage() {
       <ListingCard key={place._id} place={place} />
     );
   }
+  
+  console.log('Built', placeCards.length, 'place cards to display');
 
   return (
     <div className="homepage">

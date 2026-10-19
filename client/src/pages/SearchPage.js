@@ -5,14 +5,27 @@ import API_URL, { ACCOMMODATIONS_URL } from '../config';
 import SearchListingCard from '../components/SearchListingCard';
 import './SearchPage.css';
 
+// TODO: Add error handling for when the API is down
+// TODO: Maybe add a loading spinner instead of just text
+// TODO: Fix the price filter values to match the UI labels
+
 function SearchPage() {
+  // Get the search params from the URL
   let [searchParams, setSearchParams] = useSearchParams();
+  
+  // State for all the places
   let [places, setPlaces] = useState([]);
+  
+  // State for the filtered places after applying filters
   let [filteredPlaces, setFilteredPlaces] = useState([]);
+  
+  // State for the search term in the search bar
   let [searchTerm, setSearchTerm] = useState('');
+  
+  // Loading state - true when fetching data
   let [loading, setLoading] = useState(true);
   
-  // filter states
+  // Filter states - these control what filters are applied
   let [priceRange, setPriceRange] = useState('');
   let [placeType, setPlaceType] = useState('');
   let [freeCancellation, setFreeCancellation] = useState(false);
@@ -20,18 +33,22 @@ function SearchPage() {
   let [kitchen, setKitchen] = useState(false);
   let [airConditioning, setAirConditioning] = useState(false);
 
-  // get URL parameters from header search
+  // Get URL parameters from the header search
   let locationParam = searchParams.get('location');
   let checkInParam = searchParams.get('checkIn');
   let checkOutParam = searchParams.get('checkOut');
   let guestsParam = searchParams.get('guests');
+  
+  console.log('SearchPage loaded with params:', { locationParam, checkInParam, checkOutParam, guestsParam });
 
-  // fetch all places on component mount
+  // This useEffect runs when the component first mounts
+  // It loads all the places from the API (or fallback data)
   useEffect(function() {
-    console.log('Loading places...');
+    console.log('Starting to load places...');
     
     try {
-      // Use fallback data immediately since backend isn't running locally
+      // Using fallback data because the backend server isn't running locally
+      // TODO: Remove this when backend is deployed
       const fallbackData = [
             // CAPE TOWN LISTINGS
             {
@@ -287,85 +304,111 @@ function SearchPage() {
     }
   }, []);
 
-  // set search term from URL parameter
+  // This useEffect runs when the locationParam changes
+  // It sets the search term in the search bar to match the URL parameter
   useEffect(function() {
     console.log('Location param from URL:', locationParam);
     if (locationParam) {
+      // If there's a location in the URL, set it as the search term
       setSearchTerm(locationParam);
       console.log('Search term set to:', locationParam);
     }
   }, [locationParam]);
 
-  // filter places based on search term and filters
+  // This useEffect runs whenever any filter or search term changes
+  // It filters the places based on all the active filters
   useEffect(function() {
-    console.log('Filtering places. Search term:', searchTerm, 'Total places:', places.length);
+    console.log('=== Starting to filter places ===');
+    console.log('Search term:', searchTerm);
+    console.log('Total places to filter:', places.length);
+    console.log('Active filters:', { priceRange, placeType, freeCancellation, wifi, kitchen, airConditioning });
+    
     let results = [];
+    
+    // Loop through all places and check if they match the filters
     for (var i = 0; i < places.length; i++) {
       var place = places[i];
-      var include = true;
+      var include = true; // Assume we include it unless a filter excludes it
 
-      // filter by search term
+      // First check if the place matches the search term
       if (searchTerm) {
         var searchLower = searchTerm.toLowerCase();
         var titleLower = place.title ? place.title.toLowerCase() : '';
         var addressLower = place.address ? place.address.toLowerCase() : '';
+        
+        // Check if the search term is in the title or address
         if (!titleLower.includes(searchLower) && !addressLower.includes(searchLower)) {
           include = false;
+          console.log('Excluded', place.title, '- search term not found');
         }
       }
 
-      // filter by price range
+      // BUG FIX: The price filter values didn't match the UI labels
+      // UI says "Under R500" but code was checking > 1000
+      // UI says "R500 - R1500" but code was checking 1000-3000
+      // UI says "R1500+" but code was checking > 3000
+      // Fixed to match the actual UI labels
       if (priceRange) {
-        if (priceRange === 'low' && place.price > 1000) {
+        if (priceRange === 'low' && place.price > 500) {
           include = false;
         }
-        if (priceRange === 'medium' && (place.price <= 1000 || place.price > 3000)) {
+        if (priceRange === 'medium' && (place.price < 500 || place.price > 1500)) {
           include = false;
         }
-        if (priceRange === 'high' && place.price <= 3000) {
+        if (priceRange === 'high' && place.price < 1500) {
           include = false;
         }
+        console.log('Price filter applied:', priceRange, 'Place price:', place.price, 'Include:', include);
       }
 
-      // filter by place type
+      // Check if the place type matches what the user selected
       if (placeType) {
         if (place.type !== placeType) {
           include = false;
+          console.log('Excluded', place.title, '- wrong type:', place.type, 'needed:', placeType);
         }
       }
 
-      // filter by amenities
+      // Check amenities - make sure the place has all the selected amenities
       if (freeCancellation) {
         if (!place.perks || !place.perks.includes('Free cancellation')) {
           include = false;
+          console.log('Excluded', place.title, '- no free cancellation');
         }
       }
       if (wifi) {
         if (!place.perks || !place.perks.includes('Wifi')) {
           include = false;
+          console.log('Excluded', place.title, '- no wifi');
         }
       }
       if (kitchen) {
         if (!place.perks || !place.perks.includes('Kitchen')) {
           include = false;
+          console.log('Excluded', place.title, '- no kitchen');
         }
       }
       if (airConditioning) {
         if (!place.perks || !place.perks.includes('Air conditioning')) {
           include = false;
+          console.log('Excluded', place.title, '- no air conditioning');
         }
       }
 
+      // If the place passed all the filters, add it to results
       if (include) {
         results.push(place);
+        console.log('Included', place.title);
       }
     }
     
-    console.log('Filtered results:', results.length);
+    console.log('=== Filtering complete ===');
+    console.log('Total results:', results.length);
     setFilteredPlaces(results);
   }, [searchTerm, priceRange, placeType, freeCancellation, wifi, kitchen, airConditioning, places]);
 
-  // build place cards using SearchListingCard component
+  // Build the place cards to display in the results
+  // We loop through the filtered places and create a card for each one
   var placeCards = [];
   for (var p = 0; p < filteredPlaces.length; p++) {
     var place = filteredPlaces[p];
@@ -373,6 +416,8 @@ function SearchPage() {
       <SearchListingCard key={place._id} place={place} />
     );
   }
+  
+  console.log('Rendering', placeCards.length, 'place cards');
 
   return (
     <div className="search-page">

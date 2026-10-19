@@ -2,28 +2,48 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 
-// Header component - displays logo, search bar, navigation, and user menu with dropdown
+// TODO: Maybe add a search suggestions feature
+// TODO: The search bar could use better validation
+
+// Header component - this shows at the top of every page
+// It has the logo, search bar, navigation links, and user menu
 function Header() {
+  // useNavigate lets us navigate to different pages
   let navigate = useNavigate();
+  
+  // State for the search bar fields
   let [search, setSearch] = useState('');
   let [location, setLocation] = useState('');
   let [checkIn, setCheckIn] = useState('');
   let [checkOut, setCheckOut] = useState('');
   let [guests, setGuests] = useState(1);
+  
+  // State for user authentication
   let [user, setUser] = useState(null);
+  
+  // State for the dropdown menu
   let [showDropdown, setShowDropdown] = useState(false);
+  
+  // State for which search field is currently active
   let [activeSearchField, setActiveSearchField] = useState(null);
 
-  // check if user is logged in on component mount
+  // This useEffect runs when the component mounts
+  // It checks if there's a user logged in by looking at localStorage
   useEffect(function() {
+    console.log('Header mounted, checking for logged in user...');
     var userData = localStorage.getItem('user');
     if (userData) {
       setUser(JSON.parse(userData));
+      console.log('User is logged in:', JSON.parse(userData).name);
+    } else {
+      console.log('No user logged in');
     }
   }, []);
 
-  // handle user logout - clear localStorage and redirect
+  // This function handles user logout
+  // It clears the localStorage and redirects to home
   function handleLogout() {
+    console.log('User logging out...');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setUser(null);
@@ -31,18 +51,23 @@ function Header() {
     window.location.href = '/';
   }
 
-  // toggle dropdown menu visibility
+  // This toggles the dropdown menu on/off
   function toggleDropdown() {
     setShowDropdown(!showDropdown);
+    console.log('Dropdown toggled:', !showDropdown);
   }
 
-  // handle search button click - activate input field
+  // This is called when a user clicks on a search field
+  // It activates that field so they can type in it
   function handleSearchClick(field) {
+    console.log('Search field clicked:', field);
     setActiveSearchField(field);
   }
 
-  // handle search - navigate to search page with parameters
+  // This handles the actual search
+  // It takes all the search parameters and navigates to the search page
   function handleSearch() {
+    console.log('Searching with params:', { location, checkIn, checkOut, guests });
     let params = new URLSearchParams();
     if (location) params.append('location', location);
     if (checkIn) params.append('checkIn', checkIn);
