@@ -54,11 +54,11 @@ try {
 }
 
 // CORS setup - must come first so all subsequent middleware/routes respect it
-// Prefer CLIENT_URL env var (set on Railway), fallback to production URL, then localhost
+// Prefer CLIENT_URL env var, fallback to the live frontend URL, then localhost
 const clientUrl =
   process.env.CLIENT_URL ||
   (process.env.NODE_ENV === "production"
-    ? "https://airbnb-final-ten.vercel.app"
+    ? "https://airbnb-final-8vwz.vercel.app"
     : "http://localhost:3000");
 
 app.use(
