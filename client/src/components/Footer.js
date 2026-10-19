@@ -177,9 +177,6 @@ function Footer() {
           <div className="footer-right">
             <div className="lang-currency">English R ZAR</div>
             <div className="social-links">
-              <a href="https://github.com/vrymanrethabile-cpu/airbnb-final" className="social-link" target="_blank" rel="noreferrer" aria-label="GitHub">
-                <i className="fa-brands fa-github"></i>
-              </a>
               <a href="https://www.facebook.com/airbnb" className="social-link" target="_blank" rel="noreferrer" aria-label="Facebook">
                 <i className="fa-brands fa-facebook"></i>
               </a>
